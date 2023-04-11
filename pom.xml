@@ -8,11 +8,11 @@
 		<version>2.6.13</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.edix.proyecto_final_daw</groupId>
-	<artifactId>proyecto_final_daw</artifactId>
+	<groupId>com.edix.cookbook</groupId>
+	<artifactId>cookbook</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>proyecto_final_daw</name>
-	<description>proyecto_final_daw</description>
+	<name>cookbook</name>
+	<description>cookbook</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
