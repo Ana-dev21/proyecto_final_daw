@@ -1,4 +1,4 @@
-package com.edix.cookbook.beans;
+package com.edix.cookbook.model.beans;
 
 import java.io.Serializable;
 import javax.persistence.*;
