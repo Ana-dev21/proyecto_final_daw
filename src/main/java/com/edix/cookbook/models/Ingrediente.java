@@ -1,38 +1,38 @@
-package com.edix.cookbook.model.beans;
+package com.edix.cookbook.models;
 
 import java.io.Serializable;
 import javax.persistence.*;
 
 
 /**
- * The persistent class for the categorias database table.
+ * The persistent class for the ingredientes database table.
  * 
  */
 @Entity
-@Table(name="categorias")
-@NamedQuery(name="Categoria.findAll", query="SELECT c FROM Categoria c")
-public class Categoria implements Serializable {
+@Table(name="ingredientes")
+@NamedQuery(name="Ingrediente.findAll", query="SELECT i FROM Ingrediente i")
+public class Ingrediente implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID_CATEGORIA")
-	private int idCategoria;
+	@Column(name="ID_INGREDIENTE")
+	private int idIngrediente;
 
 	@Lob
 	private String descripcion;
 
 	private String nombre;
 
-	public Categoria() {
+	public Ingrediente() {
 	}
 
-	public int getIdCategoria() {
-		return this.idCategoria;
+	public int getIdIngrediente() {
+		return this.idIngrediente;
 	}
 
-	public void setIdCategoria(int idCategoria) {
-		this.idCategoria = idCategoria;
+	public void setIdIngrediente(int idIngrediente) {
+		this.idIngrediente = idIngrediente;
 	}
 
 	public String getDescripcion() {

@@ -1,8 +1,9 @@
-package com.edix.cookbook.model.beans;
+package com.edix.cookbook.models;
 
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 
 /**
@@ -16,7 +17,7 @@ public class Receta implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID_RECETA")
 	private int idReceta;
 
@@ -43,6 +44,10 @@ public class Receta implements Serializable {
 
 	@Column(name="TIEMPO_PREPARACION")
 	private int tiempoPreparacion;
+
+	//bi-directional many-to-one association to RecetasConIngrediente
+	@OneToMany(mappedBy="receta")
+	private List<RecetasConIngrediente> recetasConIngredientes;
 
 	//uni-directional many-to-one association to Usuario
 	@ManyToOne
@@ -138,6 +143,28 @@ public class Receta implements Serializable {
 
 	public void setTiempoPreparacion(int tiempoPreparacion) {
 		this.tiempoPreparacion = tiempoPreparacion;
+	}
+
+	public List<RecetasConIngrediente> getRecetasConIngredientes() {
+		return this.recetasConIngredientes;
+	}
+
+	public void setRecetasConIngredientes(List<RecetasConIngrediente> recetasConIngredientes) {
+		this.recetasConIngredientes = recetasConIngredientes;
+	}
+
+	public RecetasConIngrediente addRecetasConIngrediente(RecetasConIngrediente recetasConIngrediente) {
+		getRecetasConIngredientes().add(recetasConIngrediente);
+		recetasConIngrediente.setReceta(this);
+
+		return recetasConIngrediente;
+	}
+
+	public RecetasConIngrediente removeRecetasConIngrediente(RecetasConIngrediente recetasConIngrediente) {
+		getRecetasConIngredientes().remove(recetasConIngrediente);
+		recetasConIngrediente.setReceta(null);
+
+		return recetasConIngrediente;
 	}
 
 	public Usuario getUsuario() {
