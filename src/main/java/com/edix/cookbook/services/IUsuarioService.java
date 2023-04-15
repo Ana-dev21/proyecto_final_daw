@@ -13,4 +13,12 @@ public interface IUsuarioService{
 	
 	void deleteById(int id);
 
+	Usuario login(String email, String password);
+	
+	Usuario findByEmail(String email);
+	
+	Usuario findByUsername(String username);
+
+	Usuario registerNewUsuario(Usuario usuario) throws Exception;
+
 }

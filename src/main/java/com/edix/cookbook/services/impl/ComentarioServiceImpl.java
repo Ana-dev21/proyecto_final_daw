@@ -8,7 +8,7 @@ import com.edix.cookbook.models.Comentario;
 import com.edix.cookbook.services.IComentarioService;
 
 @Service
-public class ComentarioService implements IComentarioService{
+public class ComentarioServiceImpl implements IComentarioService{
 
 	@Override
 	public List<Comentario> findAll() {

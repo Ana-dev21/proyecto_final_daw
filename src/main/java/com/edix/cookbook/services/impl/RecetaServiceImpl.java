@@ -4,13 +4,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.edix.cookbook.models.Ingrediente;
 import com.edix.cookbook.models.Receta;
 import com.edix.cookbook.models.Usuario;
 import com.edix.cookbook.services.IRecetaService;
 
 @Service
-public class RecetaService implements IRecetaService{
+public class RecetaServiceImpl implements IRecetaService{
 
 	@Override
 	public List<Receta> findAll() {
