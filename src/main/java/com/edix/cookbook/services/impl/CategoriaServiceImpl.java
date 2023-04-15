@@ -2,25 +2,28 @@ package com.edix.cookbook.services.impl;
 
 import java.util.List;
 
-import com.edix.cookbook.models.RecetasEnCategoria;
-import com.edix.cookbook.services.IRecetasEnCategoria;
+import org.springframework.stereotype.Service;
 
-public class RecetasEnCategoriaService implements IRecetasEnCategoria{
+import com.edix.cookbook.models.Categoria;
+import com.edix.cookbook.services.ICategoriaService;
+
+@Service
+public class CategoriaServiceImpl implements ICategoriaService{
 
 	@Override
-	public List<RecetasEnCategoria> findAll() {
+	public List<Categoria> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public RecetasEnCategoria findById(int id) {
+	public Categoria findById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public RecetasEnCategoria save(RecetasEnCategoria recetasEnCategoria) {
+	public Categoria save(Categoria categoria) {
 		// TODO Auto-generated method stub
 		return null;
 	}

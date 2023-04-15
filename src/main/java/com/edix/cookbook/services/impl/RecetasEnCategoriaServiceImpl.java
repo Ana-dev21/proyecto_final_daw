@@ -2,25 +2,25 @@ package com.edix.cookbook.services.impl;
 
 import java.util.List;
 
-import com.edix.cookbook.models.Usuario;
-import com.edix.cookbook.services.IUsuarioService;
+import com.edix.cookbook.models.RecetasEnCategoria;
+import com.edix.cookbook.services.IRecetasEnCategoria;
 
-public class UsuarioService implements IUsuarioService{
+public class RecetasEnCategoriaServiceImpl implements IRecetasEnCategoria{
 
 	@Override
-	public List<Usuario> findAll() {
+	public List<RecetasEnCategoria> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Usuario findById(int id) {
+	public RecetasEnCategoria findById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Usuario save(Usuario usuario) {
+	public RecetasEnCategoria save(RecetasEnCategoria recetasEnCategoria) {
 		// TODO Auto-generated method stub
 		return null;
 	}

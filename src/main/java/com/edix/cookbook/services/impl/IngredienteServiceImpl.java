@@ -4,26 +4,27 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.edix.cookbook.models.Categoria;
-import com.edix.cookbook.services.ICategoriaService;
+import com.edix.cookbook.models.Ingrediente;
+import com.edix.cookbook.models.Receta;
+import com.edix.cookbook.services.IIngredienteService;
 
 @Service
-public class CategoriaService implements ICategoriaService{
+public class IngredienteServiceImpl implements IIngredienteService{
 
 	@Override
-	public List<Categoria> findAll() {
+	public List<Ingrediente> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Categoria findById(int id) {
+	public Receta findById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Categoria save(Categoria categoria) {
+	public Receta save(Ingrediente ingrediente) {
 		// TODO Auto-generated method stub
 		return null;
 	}
