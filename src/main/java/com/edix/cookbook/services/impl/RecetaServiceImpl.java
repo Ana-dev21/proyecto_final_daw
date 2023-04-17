@@ -2,19 +2,22 @@ package com.edix.cookbook.services.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edix.cookbook.models.Receta;
 import com.edix.cookbook.models.Usuario;
+import com.edix.cookbook.repository.RecetaRepository;
 import com.edix.cookbook.services.IRecetaService;
 
 @Service
 public class RecetaServiceImpl implements IRecetaService{
 
+	@Autowired RecetaRepository reRepo;
+	
 	@Override
 	public List<Receta> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return reRepo.findAll();
 	}
 
 	@Override

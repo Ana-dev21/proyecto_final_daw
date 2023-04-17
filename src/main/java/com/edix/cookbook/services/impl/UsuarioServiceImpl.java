@@ -1,5 +1,7 @@
 package com.edix.cookbook.services.impl;
 
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,8 @@ public class UsuarioServiceImpl implements IUsuarioService{
 	@Override
 	public Usuario registerNewUsuario (Usuario usuario) throws Exception {
 		if (!this.checkIfUserExists(usuario) && usuario != null) {
+			Calendar cal = Calendar.getInstance();
+	        usuario.setFechaRegistro(cal.getTime());
 			return uRepo.save(usuario);
 		}else
 			throw new Exception ("El mail o username ya existe");
