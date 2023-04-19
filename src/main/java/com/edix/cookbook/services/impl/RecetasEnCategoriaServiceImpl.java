@@ -2,10 +2,18 @@ package com.edix.cookbook.services.impl;
 
 import java.util.List;
 
-import com.edix.cookbook.models.RecetasEnCategoria;
-import com.edix.cookbook.services.IRecetasEnCategoria;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class RecetasEnCategoriaServiceImpl implements IRecetasEnCategoria{
+import com.edix.cookbook.models.Receta;
+import com.edix.cookbook.models.RecetasEnCategoria;
+import com.edix.cookbook.repository.RecetasEnCategoriaRepository;
+import com.edix.cookbook.services.IRecetasEnCategoriaService;
+
+@Service
+public class RecetasEnCategoriaServiceImpl implements IRecetasEnCategoriaService{
+	
+	@Autowired RecetasEnCategoriaRepository reCaRepo;
 
 	@Override
 	public List<RecetasEnCategoria> findAll() {
@@ -29,6 +37,12 @@ public class RecetasEnCategoriaServiceImpl implements IRecetasEnCategoria{
 	public void deleteById(int id) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Receta> findAllByCategoriaContaining(String categoria) {
+		
+		return reCaRepo.findAllByCategoriaContaining(categoria);
 	}
 
 }
