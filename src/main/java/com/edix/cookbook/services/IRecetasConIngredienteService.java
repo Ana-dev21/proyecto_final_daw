@@ -16,4 +16,6 @@ public interface IRecetasConIngredienteService {
 	void deleteById(int id);
 	
 	List<Receta> findAllByIngrediente(String nombre);
+	
+	List<Receta> findAllByMultipleIngredientes(List<Integer> listaIngredientes);
 }

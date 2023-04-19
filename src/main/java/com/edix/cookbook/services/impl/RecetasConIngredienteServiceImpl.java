@@ -41,8 +41,12 @@ public class RecetasConIngredienteServiceImpl implements IRecetasConIngredienteS
 
 	@Override
 	public List<Receta> findAllByIngrediente(String nombre) {
-		
 		return rciRepo.findAllByIngrediente(nombre);
+	}
+
+	@Override
+	public List<Receta> findAllByMultipleIngredientes(List<Integer> listaIngredientes) {
+		return rciRepo.findAllByMultipleIngredientes(listaIngredientes, listaIngredientes.size());
 	}
 
 }

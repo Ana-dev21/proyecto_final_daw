@@ -13,4 +13,8 @@ public interface RecetaConIngredienteRepository extends JpaRepository<RecetasCon
 	
 	@Query("SELECT ri.receta FROM RecetasConIngrediente ri where ri.ingrediente.nombre like %:nombre%")
 	List<Receta> findAllByIngrediente(String nombre);
+	
+	@Query("SELECT ri.receta FROM RecetasConIngrediente ri where ri.ingrediente.idIngrediente in :listaIngredientes GROUP BY ri.receta HAVING COUNT(DISTINCT ri.ingrediente.idIngrediente) = :numeroIng")
+	List<Receta> findAllByMultipleIngredientes(List<Integer> listaIngredientes, long numeroIng);
+	
 }
