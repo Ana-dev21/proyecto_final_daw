@@ -2,9 +2,10 @@ package com.edix.cookbook.services;
 
 import java.util.List;
 
+import com.edix.cookbook.models.Receta;
 import com.edix.cookbook.models.RecetasEnCategoria;
 
-public interface IRecetasEnCategoria {
+public interface IRecetasEnCategoriaService {
 	
 	List<RecetasEnCategoria> findAll();
 	
@@ -13,4 +14,6 @@ public interface IRecetasEnCategoria {
 	RecetasEnCategoria save(RecetasEnCategoria recetasEnCategoria);
 	
 	void deleteById(int id);
+	
+	List<Receta> findAllByCategoriaContaining(String categoria);
 }

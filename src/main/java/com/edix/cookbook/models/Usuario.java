@@ -2,6 +2,9 @@ package com.edix.cookbook.models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 
@@ -26,6 +29,7 @@ public class Usuario implements Serializable {
 	@Column(name="FECHA_REGISTRO")
 	private Date fechaRegistro;
 
+	@JsonIgnore
 	private String password;
 
 	private String username;

@@ -20,7 +20,6 @@ public interface RecetaRepository extends JpaRepository<Receta,Integer>{
 		
 	@Query("SELECT r FROM Receta r WHERE r.tiempoCoccion < :tiempo")
 	List<Receta> findAllByTiempoCoccionLessThan(int tiempo);
-		
-//	@Query("SELECT DISTINCT r FROM Receta r JOIN r.recetasConIngredientes.ingrediente i WHERE i IN (:ingredientes)")
-//	List<Receta> findAllByIngredientesIn(List<Ingrediente> ingredientes);
+	
 }
+
