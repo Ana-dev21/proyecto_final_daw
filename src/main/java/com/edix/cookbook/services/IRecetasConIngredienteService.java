@@ -2,6 +2,7 @@ package com.edix.cookbook.services;
 
 import java.util.List;
 
+import com.edix.cookbook.models.Receta;
 import com.edix.cookbook.models.RecetasConIngrediente;
 
 public interface IRecetasConIngredienteService {
@@ -13,4 +14,6 @@ public interface IRecetasConIngredienteService {
 	RecetasConIngrediente save(RecetasConIngrediente recetasConIngrediente);
 	
 	void deleteById(int id);
+	
+	List<Receta> findAllByIngrediente(String nombre);
 }

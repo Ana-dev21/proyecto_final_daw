@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.edix.cookbook.services.ICategoriaService;
 import com.edix.cookbook.services.IIngredienteService;
 import com.edix.cookbook.services.IRecetaService;
+import com.edix.cookbook.services.IRecetasConIngredienteService;
 import com.edix.cookbook.services.IRecetasEnCategoriaService;
 
 @RestController
@@ -20,6 +21,7 @@ public class RecetasRestController {
 	@Autowired IRecetaService reService;
 	@Autowired IIngredienteService inService;
 	@Autowired IRecetasEnCategoriaService reCaService;
+	@Autowired IRecetasConIngredienteService reCiService;
 
 	@GetMapping("/categorias")
 	public ResponseEntity<?> getAllCategorias (){
@@ -41,5 +43,8 @@ public class RecetasRestController {
 		return ResponseEntity.ok(reCaService.findAllByCategoriaContaining(categoria));
 	}
 	
-	
+	@GetMapping("/porIngrediente")
+	public ResponseEntity<?> getRecetasByIngrediente (@RequestParam String ingrediente){
+		return ResponseEntity.ok(reCiService.findAllByIngrediente(ingrediente));
+	}
 }

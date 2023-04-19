@@ -12,5 +12,5 @@ public interface RecetaConIngredienteRepository extends JpaRepository<RecetasCon
 
 	
 	@Query("SELECT ri.receta FROM RecetasConIngrediente ri where ri.ingrediente.nombre like %:nombre%")
-	List<Receta> findAllByIngrediente(String categoria);
+	List<Receta> findAllByIngrediente(String nombre);
 }
