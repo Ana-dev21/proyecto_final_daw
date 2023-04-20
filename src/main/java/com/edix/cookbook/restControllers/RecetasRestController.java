@@ -27,31 +27,34 @@ public class RecetasRestController {
 	@Autowired IRecetasEnCategoriaService reCaService;
 	@Autowired IRecetasConIngredienteService reCiService;
 
-	@GetMapping("/categorias")
-	public ResponseEntity<?> getAllCategorias (){
-		return ResponseEntity.ok(caService.findAll());
-	}
-	
-	@GetMapping("/todas")
-	public ResponseEntity<?> getAllRecetas (){
-		return ResponseEntity.ok(reService.findAll());
-	}
-	
-	@GetMapping("/ingredientes")
-	public ResponseEntity<?> getAllIngredientes (){
-		return ResponseEntity.ok(inService.findAll());
-	}
-	
+	/**
+	 * Este método obtiene todas las recetas que contengan una determinada categoría
+	 *
+	 * @param categoria La categoría por la que se filtrarán las recetas
+	 * @return ResponseEntity con una lista de las recetas que contengan la categoría proporcionada
+	 */
 	@GetMapping("/porCategoria")
 	public ResponseEntity<?> getRecetasByCategoria (@RequestParam String categoria){
 		return ResponseEntity.ok(reCaService.findAllByCategoriaContaining(categoria));
 	}
 	
+	/**
+	 * Este método obtiene todas las recetas que contengan un determinado ingrediente
+	 *
+	 * @param ingrediente El ingrediente por el que se filtrarán las recetas
+	 * @return ResponseEntity con una lista de las recetas que contengan el ingrediente proporcionado
+	 */
 	@GetMapping("/porIngrediente")
 	public ResponseEntity<?> getRecetasByIngrediente (@RequestParam String ingrediente){
 		return ResponseEntity.ok(reCiService.findAllByIngrediente(ingrediente));
 	}
 	
+	/**
+	 * Este método obtiene todas las recetas que contengan una lista de ingredientes
+	 *
+	 * @param listaIngredientes La lista de ingredientes por la que se filtrarán las recetas. ej. [2,3]
+	 * @return ResponseEntity con una lista de las recetas que contengan los ingredientes proporcionados
+	 */
 	@PostMapping("/porIngredientes")
 	public ResponseEntity<?> getRecetasByMultipleIngredientes (@RequestBody List<Integer> listaIngredientes){
 		return ResponseEntity.ok(reCiService.findAllByMultipleIngredientes(listaIngredientes));
