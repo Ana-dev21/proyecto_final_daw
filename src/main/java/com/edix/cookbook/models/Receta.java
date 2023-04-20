@@ -42,11 +42,12 @@ public class Receta implements Serializable {
 
 	private BigDecimal proteinas;
 
+
 	@Column(name="TIEMPO_COCCION")
-	private int tiempoCoccion;
+	private Integer tiempoCoccion;
 
 	@Column(name="TIEMPO_PREPARACION")
-	private int tiempoPreparacion;
+	private Integer tiempoPreparacion;
 
 	//bi-directional many-to-one association to RecetasConIngrediente
 	@OneToMany(mappedBy="receta")
@@ -132,11 +133,11 @@ public class Receta implements Serializable {
 		this.proteinas = proteinas;
 	}
 
-	public int getTiempoCoccion() {
+	public Integer getTiempoCoccion() {
 		return this.tiempoCoccion;
 	}
 
-	public void setTiempoCoccion(int tiempoCoccion) {
+	public void setTiempoCoccion(Integer tiempoCoccion) {
 		this.tiempoCoccion = tiempoCoccion;
 	}
 
