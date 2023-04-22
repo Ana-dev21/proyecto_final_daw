@@ -19,7 +19,7 @@ public class SwaggerConfig {
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.edix.proyecto"))
+                .apis(RequestHandlerSelectors.basePackage("com.edix.cookbook"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(new ApiInfoBuilder().title("API Cookbook").description("Api para obtener datos de recetas, categorias y usuarios").build());

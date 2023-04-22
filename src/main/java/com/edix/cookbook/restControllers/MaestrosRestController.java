@@ -11,7 +11,7 @@ import com.edix.cookbook.services.IIngredienteService;
 import com.edix.cookbook.services.IRecetaService;
 
 @RestController
-@RequestMapping("/maestros")
+@RequestMapping("/recetas")
 public class MaestrosRestController {
 	
 	@Autowired ICategoriaService caService;
