@@ -1,6 +1,7 @@
 package com.edix.cookbook.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,13 @@ public class RecetaServiceImpl implements IRecetaService{
 	}
 
 	@Override
-	public Receta findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Receta findById(int id) throws Exception {
+		Optional<Receta> recetaOptional = reRepo.findById(id);
+        if (recetaOptional.isPresent()) {
+            return recetaOptional.get();
+        } else {
+            throw new Exception(" No se encontró la receta con el Id " + id);
+        }
 	}
 
 	@Override

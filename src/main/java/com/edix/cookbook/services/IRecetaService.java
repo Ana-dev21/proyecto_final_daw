@@ -8,7 +8,7 @@ import com.edix.cookbook.models.Usuario;
 public interface IRecetaService {
 	List<Receta> findAll();
 	
-	Receta findById(int id);
+	Receta findById(int id) throws Exception;
 	
 	Receta save(Receta receta);
 	
