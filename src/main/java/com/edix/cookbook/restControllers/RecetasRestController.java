@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.*;
+
+
 import com.edix.cookbook.services.ICategoriaService;
 import com.edix.cookbook.services.IIngredienteService;
 import com.edix.cookbook.services.IRecetaService;
@@ -21,6 +24,7 @@ import com.edix.cookbook.services.IRecetasEnCategoriaService;
 
 @RestController
 @RequestMapping("/recetas")
+@CrossOrigin("*")
 public class RecetasRestController {
 	
 	@Autowired ICategoriaService caService;

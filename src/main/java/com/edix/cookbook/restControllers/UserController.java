@@ -3,15 +3,14 @@ package com.edix.cookbook.restControllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.edix.cookbook.models.Usuario;
 import com.edix.cookbook.services.IUsuarioService;
 
+import java.util.List;
+
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/usuario")
 public class UserController {
@@ -56,7 +55,11 @@ public class UserController {
 	    public String test(){
 	    	return "ok";
 	    }
-	    
+
+		@GetMapping("/todos")
+		public List<Usuario> buscarTodos(){
+			return uService.findAll();
+		}
 
 }
 
