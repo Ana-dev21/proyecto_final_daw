@@ -1,22 +1,20 @@
 package com.edix.cookbook.restControllers;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.edix.cookbook.models.Comentario;
+import com.edix.cookbook.models.Receta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.edix.cookbook.services.ICategoriaService;
 import com.edix.cookbook.services.IIngredienteService;
 import com.edix.cookbook.services.IRecetaService;
 import com.edix.cookbook.services.IRecetasConIngredienteService;
 import com.edix.cookbook.services.IRecetasEnCategoriaService;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/recetas")
 public class RecetasRestController {
@@ -56,4 +54,18 @@ public class RecetasRestController {
 	public ResponseEntity<?> getRecetasByMultipleIngredientes (@RequestBody List<Integer> listaIngredientes){
 		return ResponseEntity.ok(reCiService.findAllByMultipleIngredientes(listaIngredientes));
 	}
+
+	@GetMapping("/una")
+	public Optional<Receta> obtenerUnaReceta(@RequestParam int idReceta){
+		return reService.findById(idReceta);
+	}
+
+	@GetMapping("/comentarios")
+	public List<Comentario> obetenerComentario(@RequestParam int idReceta){
+		return reService.obtenerComentarios(idReceta);
+	}
+
+
+
+
 }

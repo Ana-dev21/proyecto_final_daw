@@ -1,16 +1,20 @@
 package com.edix.cookbook.services;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.edix.cookbook.models.Comentario;
 import com.edix.cookbook.models.Receta;
 import com.edix.cookbook.models.Usuario;
 
 public interface IRecetaService {
 	List<Receta> findAll();
 	
-	Receta findById(int id);
+	Optional<Receta> findById(int id);
 	
 	Receta save(Receta receta);
+
+	List<Comentario> obtenerComentarios(int idReceta);
 	
 	void deleteById(int id);
 	
