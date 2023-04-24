@@ -10,9 +10,10 @@ import com.edix.cookbook.services.IUsuarioService;
 
 import java.util.List;
 
-@CrossOrigin("*")
+
 @RestController
 @RequestMapping("/usuario")
+@CrossOrigin("*")
 public class UserController {
 
 	    @Autowired

@@ -3,7 +3,6 @@ package com.edix.cookbook.services.impl;
 import java.util.List;
 import java.util.Optional;
 
-import com.edix.cookbook.models.Comentario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,19 +22,19 @@ public class RecetaServiceImpl implements IRecetaService{
 	}
 
 	@Override
-	public Optional<Receta> findById(int id) {
-		return reRepo.findById(id);
+	public Receta findById(int id) throws Exception {
+		Optional<Receta> recetaOptional = reRepo.findById(id);
+        if (recetaOptional.isPresent()) {
+            return recetaOptional.get();
+        } else {
+            throw new Exception(" No se encontró la receta con el Id " + id);
+        }
 	}
 
 	@Override
 	public Receta save(Receta receta) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public List<Comentario> obtenerComentarios(int idReceta) {
-		return reRepo.comentariosEnReceta(idReceta);
 	}
 
 	@Override
