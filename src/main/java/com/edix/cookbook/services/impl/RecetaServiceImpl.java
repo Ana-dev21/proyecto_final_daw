@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.edix.cookbook.models.Receta;
 import com.edix.cookbook.models.Usuario;
@@ -27,14 +28,48 @@ public class RecetaServiceImpl implements IRecetaService{
         if (recetaOptional.isPresent()) {
             return recetaOptional.get();
         } else {
-            throw new Exception(" No se encontró la receta con el Id " + id);
+            throw new Exception("No se encontró la receta con el Id " + id);
         }
 	}
 
 	@Override
-	public Receta save(Receta receta) {
-		// TODO Auto-generated method stub
-		return null;
+	public Receta save(Receta receta) throws Exception {
+		if (reRepo.findById(receta.getIdReceta()) != null) {
+			return reRepo.save(receta);
+		}else {
+			throw new Exception("La Receta con ese id ya existe" );
+		}
+		
+	}
+	
+	@Override
+    public Receta save(Receta receta, MultipartFile imagen) throws Exception{
+    
+		if (reRepo.findById(receta.getIdReceta()) == null) {
+			//Guardar imagen
+			return reRepo.save(receta);
+		}else {
+			throw new Exception("Ha ocurrido un error al actualizar la receta" );
+		}
+    }
+	
+	@Override
+	public Receta update(Receta receta) throws Exception {
+		if (reRepo.findById(receta.getIdReceta()) != null) {
+			return reRepo.save(receta);
+		}else {
+			throw new Exception("Ha ocurrido un error al actualizar la receta" );
+		}
+	}
+
+	@Override
+	public Receta update(Receta receta, MultipartFile imagen) throws Exception {
+		//Guardar imagen
+		if (reRepo.findById(receta.getIdReceta()) != null) {
+			return reRepo.save(receta);
+		}else {
+			throw new Exception("Ha ocurrido un error al guardar la receta" );
+		}
 	}
 
 	@Override
@@ -67,10 +102,5 @@ public class RecetaServiceImpl implements IRecetaService{
 		return null;
 	}
 
-//	@Override
-//	public List<Receta> findAllByIngredientesIn(List<Ingrediente> ingredientes) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 }

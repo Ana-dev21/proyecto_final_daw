@@ -1,6 +1,11 @@
 package com.edix.cookbook.restControllers;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,15 +17,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.*;
 
-
+import com.edix.cookbook.models.Receta;
 import com.edix.cookbook.services.ICategoriaService;
 import com.edix.cookbook.services.IIngredienteService;
 import com.edix.cookbook.services.IRecetaService;
 import com.edix.cookbook.services.IRecetasConIngredienteService;
 import com.edix.cookbook.services.IRecetasEnCategoriaService;
+import com.edix.cookbook.services.IStorageService;
 
 @RestController
 @RequestMapping("/recetas")
@@ -32,6 +38,7 @@ public class RecetasRestController {
 	@Autowired IIngredienteService inService;
 	@Autowired IRecetasEnCategoriaService reCaService;
 	@Autowired IRecetasConIngredienteService reCiService;
+	@Autowired IStorageService stoService;
 	
 	/**
 	 * Este método obtiene una receta
@@ -50,6 +57,54 @@ public class RecetasRestController {
 		
 		
 	}
+	
+	/**
+	 * Este método guarda una imagen en la carpeta uploads y guarda el nombre de la imagen guardada como String en la Receta
+	 * @param idReceta
+	 * @param imagen La imagen puede tener 5MB como máximo
+	 * @return Receta La receta con el nombre de la imagen guardada en la propiedad de tipo String imagen
+	 * @throws Exception Si ocurre algún error al guardar la imagen
+	 */
+	@PostMapping("/guardarImagen/{idReceta}")
+	// añadir parametros opcionales MultiFile
+	public ResponseEntity<?> guardarImagen(@PathVariable int idReceta, @RequestParam("imagen") MultipartFile imagen) {
+		try {
+			return new ResponseEntity<>(stoService.saveImage(idReceta, imagen), HttpStatus.CREATED);
+
+		} catch (Exception e) {
+			return new ResponseEntity<>("Ocurrió un error al procesar la solicitud :" + e.getMessage(),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	/**
+	 * Método para dar de alta una nueva receta
+	 * @param receta
+	 * @return
+	 * @throws Exception si 
+	 */
+	@PostMapping("/alta")
+	// añadir parametros opcionales MultiFile
+	public ResponseEntity<?> createReceta(@RequestBody Receta receta) {
+		try {
+			return new ResponseEntity<>(reService.save(receta), HttpStatus.CREATED);
+
+		} catch (Exception e) {
+			return new ResponseEntity<>("Ocurrió un error al crear la receta :" + e.getMessage(),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PutMapping("/update")
+	//añadir parametros opcionales MultiFile
+    public ResponseEntity<?> updateReceta(@RequestBody Receta receta) {
+        try {
+			Receta recetaGuardada = reService.update(receta);
+			return new ResponseEntity<>(recetaGuardada, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>("Ocurrió un error al procesar la solicitud :" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+    }
 
 	/**
 	 * Este método obtiene todas las recetas que contengan una determinada categoría
