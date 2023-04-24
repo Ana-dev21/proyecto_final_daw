@@ -1,12 +1,12 @@
 package com.edix.cookbook.restControllers;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.edix.cookbook.models.Comentario;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,20 +35,18 @@ public class RecetasRestController {
 	
 	/**
 	 * Este método obtiene una receta
-	 * 
+	 *
 	 * @param idReceta El id de la receta
 	 * @return ResponseEntity con la receta o mensaje de error si no la encuentra
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	@GetMapping("/verUna/{idReceta}")
-	public ResponseEntity<?> getRecetaById (@PathVariable int idReceta) throws Exception{
+	@GetMapping("/una")
+	public ResponseEntity<Optional> getRecetaById (@RequestParam int idReceta ) {
 		try {
 			return ResponseEntity.ok(reService.findById(idReceta));
 		} catch (Exception e) {
-			return new ResponseEntity<>("Ocurrió un error al procesar la solicitud :" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new RuntimeException(e);
 		}
-		
-		
 	}
 
 	/**
@@ -82,6 +80,11 @@ public class RecetasRestController {
 	@PostMapping("/porIngredientes")
 	public ResponseEntity<?> getRecetasByMultipleIngredientes (@RequestBody List<Integer> listaIngredientes){
 		return ResponseEntity.ok(reCiService.findAllByMultipleIngredientes(listaIngredientes));
+	}
+
+	@GetMapping("/comentarios")
+	public List<Comentario> ObtenerComentarios(@RequestParam int idReceta){
+		return reService.listarComentarios(idReceta);
 	}
 	
 	

@@ -1,14 +1,16 @@
 package com.edix.cookbook.services;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.edix.cookbook.models.Comentario;
 import com.edix.cookbook.models.Receta;
 import com.edix.cookbook.models.Usuario;
 
 public interface IRecetaService {
 	List<Receta> findAll();
 	
-	Receta findById(int id) throws Exception;
+	Optional<Receta> findById(int idReceta) throws Exception;
 	
 	Receta save(Receta receta);
 	
@@ -25,6 +27,8 @@ public interface IRecetaService {
 	
 	//TODO Repository Query
 	List<Receta> findAllByTiempoCoccionLessThan(int tiempo);
+
+	List<Comentario>listarComentarios(int idReceta);
 	
 //	//TODO Repository Query
 //	List<Receta> findAllByIngredientesIn(List<Ingrediente> ingredientes);
