@@ -1,11 +1,6 @@
 package com.edix.cookbook.restControllers;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-
-import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +21,6 @@ import com.edix.cookbook.services.IIngredienteService;
 import com.edix.cookbook.services.IRecetaService;
 import com.edix.cookbook.services.IRecetasConIngredienteService;
 import com.edix.cookbook.services.IRecetasEnCategoriaService;
-import com.edix.cookbook.services.IStorageService;
 
 @RestController
 @RequestMapping("/recetas")
@@ -38,7 +32,6 @@ public class RecetasRestController {
 	@Autowired IIngredienteService inService;
 	@Autowired IRecetasEnCategoriaService reCaService;
 	@Autowired IRecetasConIngredienteService reCiService;
-	@Autowired IStorageService stoService;
 	
 	/**
 	 * Este método obtiene una receta
@@ -65,11 +58,11 @@ public class RecetasRestController {
 	 * @return Receta La receta con el nombre de la imagen guardada en la propiedad de tipo String imagen
 	 * @throws Exception Si ocurre algún error al guardar la imagen
 	 */
-	@PostMapping("/guardarImagen/{idReceta}")
+	@PostMapping("/guardarImagen")
 	// añadir parametros opcionales MultiFile
-	public ResponseEntity<?> guardarImagen(@PathVariable int idReceta, @RequestParam("imagen") MultipartFile imagen) {
+	public ResponseEntity<?> guardarImagen(@RequestParam int idReceta, @RequestParam("imagen") MultipartFile imagen) {
 		try {
-			return new ResponseEntity<>(stoService.saveImage(idReceta, imagen), HttpStatus.CREATED);
+			return new ResponseEntity<>(reService.saveImage(idReceta, imagen), HttpStatus.CREATED);
 
 		} catch (Exception e) {
 			return new ResponseEntity<>("Ocurrió un error al procesar la solicitud :" + e.getMessage(),
@@ -87,7 +80,7 @@ public class RecetasRestController {
 	// añadir parametros opcionales MultiFile
 	public ResponseEntity<?> createReceta(@RequestBody Receta receta) {
 		try {
-			return new ResponseEntity<>(reService.save(receta), HttpStatus.CREATED);
+			return new ResponseEntity<>(reService.create(receta), HttpStatus.CREATED);
 
 		} catch (Exception e) {
 			return new ResponseEntity<>("Ocurrió un error al crear la receta :" + e.getMessage(),

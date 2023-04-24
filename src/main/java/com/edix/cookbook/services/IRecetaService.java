@@ -12,9 +12,9 @@ public interface IRecetaService {
 	
 	Receta findById(int id) throws Exception;
 	
-	Receta save(Receta receta) throws Exception;
+	Receta create(Receta receta) throws Exception;
 	
-	Receta save(Receta receta, MultipartFile imagen) throws Exception;
+	Receta create(Receta receta, MultipartFile imagen) throws Exception;
 	
 	Receta update(Receta receta) throws Exception;
 	
@@ -33,6 +33,8 @@ public interface IRecetaService {
 	
 	//TODO Repository Query
 	List<Receta> findAllByTiempoCoccionLessThan(int tiempo);
+
+	Receta saveImage(int idReceta, MultipartFile imagen) throws Exception;
 
 	
 	

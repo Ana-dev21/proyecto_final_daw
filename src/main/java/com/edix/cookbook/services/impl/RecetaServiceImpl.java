@@ -1,5 +1,8 @@
 package com.edix.cookbook.services.impl;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +36,8 @@ public class RecetaServiceImpl implements IRecetaService{
 	}
 
 	@Override
-	public Receta save(Receta receta) throws Exception {
+	public Receta create(Receta receta) throws Exception {
+		
 		if (reRepo.findById(receta.getIdReceta()) != null) {
 			return reRepo.save(receta);
 		}else {
@@ -43,15 +47,15 @@ public class RecetaServiceImpl implements IRecetaService{
 	}
 	
 	@Override
-    public Receta save(Receta receta, MultipartFile imagen) throws Exception{
-    
-		if (reRepo.findById(receta.getIdReceta()) == null) {
-			//Guardar imagen
-			return reRepo.save(receta);
-		}else {
-			throw new Exception("Ha ocurrido un error al actualizar la receta" );
+	public Receta create(Receta receta, MultipartFile imagen) throws Exception {
+
+		if (reRepo.findById(receta.getIdReceta()) == null && !imagen.isEmpty()) {
+			Receta recetaCreada = reRepo.save(receta);
+			return this.saveImage(recetaCreada.getIdReceta(), imagen);
+		} else {
+			throw new Exception("Ha ocurrido un error al crear la receta");
 		}
-    }
+	}
 	
 	@Override
 	public Receta update(Receta receta) throws Exception {
@@ -70,6 +74,29 @@ public class RecetaServiceImpl implements IRecetaService{
 		}else {
 			throw new Exception("Ha ocurrido un error al guardar la receta" );
 		}
+	}
+	
+	@Override
+	public Receta saveImage(int idReceta, MultipartFile imagen) throws Exception {
+		
+		Path directorioImagenes = Paths.get("src//main//resources//static/uploads");
+		String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+		Receta receta = this.findById(idReceta);
+
+		// recuperar bytes de la imagen recibida
+		byte[] bytesImg = imagen.getBytes();
+		
+		// Guardar imagen en ruta
+		Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + idReceta + "-" +imagen.getOriginalFilename());
+		Files.write(rutaCompleta, bytesImg);
+
+		// Registrar ruta en atributo de imagen
+		receta.setImagen(imagen.getOriginalFilename());
+
+		Receta recetaGuardada = this.update(receta);
+		
+		return recetaGuardada;
+		
 	}
 
 	@Override
