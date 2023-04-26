@@ -41,7 +41,7 @@ public class RecetasRestController {
 	 * @throws Exception
 	 */
 	@GetMapping("/una")
-	public ResponseEntity<Optional> getRecetaById (@RequestParam int idReceta ) {
+	public ResponseEntity<?> getRecetaById (@RequestParam int idReceta ) {
 		try {
 			return ResponseEntity.ok(reService.findById(idReceta));
 		} catch (Exception e) {
