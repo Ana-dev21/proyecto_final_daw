@@ -2,6 +2,7 @@ package com.edix.cookbook.repository;
 
 import java.util.List;
 
+import com.edix.cookbook.models.Comentario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import com.edix.cookbook.models.Receta;
@@ -20,6 +21,11 @@ public interface RecetaRepository extends JpaRepository<Receta,Integer>{
 		
 	@Query("SELECT r FROM Receta r WHERE r.tiempoCoccion < :tiempo")
 	List<Receta> findAllByTiempoCoccionLessThan(int tiempo);
+
+	@Query("SELECT c FROM Comentario c where c.receta.idReceta = :idReceta")
+	List<Comentario> comentariosEnReceta(int idReceta);
+
+
 	
 }
 

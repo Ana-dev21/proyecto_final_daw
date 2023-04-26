@@ -17,8 +17,7 @@ public class UsuarioServiceImpl implements IUsuarioService{
 
 	@Override
 	public List<Usuario> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return uRepo.findAll();
 	}
 
 	@Override
