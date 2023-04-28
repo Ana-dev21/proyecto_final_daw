@@ -1,18 +1,24 @@
 package com.edix.cookbook.services;
 
 import java.util.List;
-import java.util.Optional;
-
 import com.edix.cookbook.models.Comentario;
 import com.edix.cookbook.models.Receta;
 import com.edix.cookbook.models.Usuario;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public interface IRecetaService {
 	List<Receta> findAll();
 	
-	Optional<Receta> findById(int idReceta) throws Exception;
+	Receta findById(int idReceta) throws Exception;
 	
-	Receta save(Receta receta);
+	Receta create(Receta receta) throws Exception;
+	
+	Receta create(Receta receta, MultipartFile imagen) throws Exception;
+	
+	Receta update(Receta receta) throws Exception;
+	
+	Receta update(Receta receta, MultipartFile imagen) throws Exception;
 	
 	void deleteById(int id);
 	
@@ -29,6 +35,10 @@ public interface IRecetaService {
 	List<Receta> findAllByTiempoCoccionLessThan(int tiempo);
 
 	List<Comentario>listarComentarios(int idReceta);
+
+	Receta saveImage(int idReceta, MultipartFile imagen) throws Exception;
+
+	
 	
 //	//TODO Repository Query
 //	List<Receta> findAllByIngredientesIn(List<Ingrediente> ingredientes);
