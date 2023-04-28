@@ -12,4 +12,7 @@ public interface RecetasEnCategoriaRepository extends JpaRepository<RecetasEnCat
 
 	@Query("SELECT rc.receta FROM RecetasEnCategoria rc where rc.categoria.nombre LIKE %:categoria%")
 	List<Receta> findAllByCategoriaContaining(String categoria);
+
+	@Query("SELECT rc.receta FROM RecetasEnCategoria rc where rc.categoria.idCategoria = :idCategoria")
+	List<Receta> findAllByCategoriaIdCategoria(int idCategoria);
 }
