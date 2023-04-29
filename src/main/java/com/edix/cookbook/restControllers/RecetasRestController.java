@@ -75,9 +75,13 @@ public class RecetasRestController {
 	 */
 	@PostMapping("/alta")
 	// añadir parametros opcionales MultiFile
-	public ResponseEntity<?> createReceta(@RequestBody Receta receta) {
+	public ResponseEntity<?> createReceta(@RequestBody Receta receta, @RequestParam(name="imagen", required=false) MultipartFile file) {
 		try {
-			return new ResponseEntity<>(reService.create(receta), HttpStatus.CREATED);
+			if (file != null) {
+				return new ResponseEntity<>(reService.create(receta, file), HttpStatus.CREATED);
+			}else {
+				return new ResponseEntity<>(reService.create(receta), HttpStatus.CREATED);
+			}
 
 		} catch (Exception e) {
 			return new ResponseEntity<>("Ocurrió un error al crear la receta :" + e.getMessage(),

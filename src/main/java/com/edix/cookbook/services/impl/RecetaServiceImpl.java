@@ -6,10 +6,14 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
+
 import com.edix.cookbook.models.Comentario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.edix.cookbook.models.Receta;
 import com.edix.cookbook.models.Usuario;
@@ -32,17 +36,17 @@ public class RecetaServiceImpl implements IRecetaService{
         if (recetaOptional.isPresent()) {
             return recetaOptional.get();
         } else {
-            throw new Exception("No se encontró la receta con el Id " + id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No se encontró la receta");
         }
 	}
 
 	@Override
 	public Receta create(Receta receta) throws Exception {
 		
-		if (reRepo.findById(receta.getIdReceta()) != null) {
+		if (receta.getIdReceta() == 0) {
 			return reRepo.save(receta);
 		}else {
-			throw new Exception("La Receta con ese id ya existe" );
+			throw new Exception("La Receta con id = " + receta.getIdReceta() + " ya existe" );
 		}
 		
 	}
@@ -50,7 +54,7 @@ public class RecetaServiceImpl implements IRecetaService{
 	@Override
 	public Receta create(Receta receta, MultipartFile imagen) throws Exception {
 
-		if (reRepo.findById(receta.getIdReceta()) == null && !imagen.isEmpty()) {
+		if (receta.getIdReceta() == 0) {
 			Receta recetaCreada = reRepo.save(receta);
 			return this.saveImage(recetaCreada.getIdReceta(), imagen);
 		} else {
@@ -73,7 +77,7 @@ public class RecetaServiceImpl implements IRecetaService{
 		if (reRepo.findById(receta.getIdReceta()) != null) {
 			return reRepo.save(receta);
 		}else {
-			throw new Exception("Ha ocurrido un error al guardar la receta" );
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Ha ocurrido un error al guardar la receta");
 		}
 	}
 	
@@ -85,20 +89,26 @@ public class RecetaServiceImpl implements IRecetaService{
 		Receta receta = this.findById(idReceta);
 
 		// recuperar bytes de la imagen recibida
-		byte[] bytesImg = imagen.getBytes();
-		
-		// Guardar imagen en ruta
-		Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + idReceta + "-" +imagen.getOriginalFilename());
-		Files.write(rutaCompleta, bytesImg);
+		try {
+			byte[] bytesImg = imagen.getBytes();
+			
+			// Guardar imagen en ruta
+			Path rutaCompleta = Paths.get(rutaAbsoluta + "//" +imagen.getOriginalFilename());
+			Files.write(rutaCompleta, bytesImg);
 
-		// Registrar ruta en atributo de imagen
-		receta.setImagen(imagen.getOriginalFilename());
+			// Registrar ruta en atributo de imagen
+			receta.setImagen(imagen.getOriginalFilename());
 
-		Receta recetaGuardada = this.update(receta);
-		
-		return recetaGuardada;
+			Receta recetaGuardada = this.update(receta);
+			
+			return recetaGuardada;
+		} catch (Exception e) {
+			throw new Exception(e);			
+		}
 		
 	}
+	
+	
 
 	@Override
 	public void deleteById(int id) {
@@ -134,11 +144,5 @@ public class RecetaServiceImpl implements IRecetaService{
 	public List<Comentario> listarComentarios(int idReceta) {
 		return reRepo.comentariosEnReceta(idReceta);
 	}
-
-//	@Override
-//	public List<Receta> findAllByIngredientesIn(List<Ingrediente> ingredientes) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 }
