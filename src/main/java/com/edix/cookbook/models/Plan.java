@@ -16,6 +16,9 @@ public class Plan {
     @Column(name = "DESCRIPCION")
     private String descripcion;
 
+    @Column(name = "IMAGEN")
+    private String imagen;
+
     public Integer getId() {
         return id;
     }
@@ -40,4 +43,7 @@ public class Plan {
         this.descripcion = descripcion;
     }
 
+    public String getImagen() { return "localhost:8080/planes/" + imagen;}
+
+    public void setImagen(String imagen) {this.imagen = imagen; }
 }
