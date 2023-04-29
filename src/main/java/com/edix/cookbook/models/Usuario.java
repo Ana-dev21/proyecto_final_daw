@@ -26,7 +26,8 @@ public class Usuario implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name="FECHA_REGISTRO")
 	private Date fechaRegistro;
-
+	
+	private String imagen;
 
 	private String password;
 
@@ -57,6 +58,14 @@ public class Usuario implements Serializable {
 
 	public void setFechaRegistro(Date fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
+	}
+
+	public String getImagen() {
+		return "localhost:8080/usuarios/" + imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 	public String getPassword() {

@@ -75,6 +75,7 @@ public class RecetaServiceImpl implements IRecetaService{
 		//Guardar imagen
 		if (reRepo.findById(receta.getIdReceta()) != null) {
 			return reRepo.save(receta);
+			
 		}else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Ha ocurrido un error al guardar la receta");
 		}
@@ -108,7 +109,6 @@ public class RecetaServiceImpl implements IRecetaService{
 	}
 	
 	
-
 	@Override
 	public void deleteById(int id) {
 		// TODO Auto-generated method stub
