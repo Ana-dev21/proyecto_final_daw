@@ -1,10 +1,17 @@
 package com.edix.cookbook.services.impl;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.edix.cookbook.models.Usuario;
 import com.edix.cookbook.repository.UsuarioRepository;
@@ -22,8 +29,12 @@ public class UsuarioServiceImpl implements IUsuarioService{
 
 	@Override
 	public Usuario findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Usuario> usuarioOptional = uRepo.findById(id);
+        if (usuarioOptional.isPresent()) {
+            return usuarioOptional.get();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No se encontró el usuario");
+        }
 	}
 
 	@Override
@@ -77,6 +88,53 @@ public class UsuarioServiceImpl implements IUsuarioService{
 			return true;
 		}else
 			return false;
+	}
+
+	@Override
+	public Usuario saveImage(int idUsuario, MultipartFile imagen) throws Exception{
+		Path directorioImagenes = Paths.get("src//main//resources//static/usuarios");
+		String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+		Usuario usuario = this.findById(idUsuario);
+
+		// recuperar bytes de la imagen recibida
+		try {
+			byte[] bytesImg = imagen.getBytes();
+			
+			// Guardar imagen en ruta
+			Path rutaCompleta = Paths.get(rutaAbsoluta + "//" +imagen.getOriginalFilename());
+			Files.write(rutaCompleta, bytesImg);
+
+			// Registrar ruta en atributo de imagen
+			usuario.setImagen(imagen.getOriginalFilename());
+
+			Usuario usuarioGuardado = this.update(usuario);
+			
+			return usuarioGuardado;
+		} catch (Exception e) {
+			throw new Exception(e);			
+		}
+		
+	}
+	
+	@Override
+	public Usuario update(Usuario usuario) throws Exception {
+	
+				if (uRepo.findById(usuario.getIdUsuario()) != null) {
+					return uRepo.save(usuario);
+				}else {
+					throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Ha ocurrido un error al guardar la receta");
+				}
+	}
+
+
+	@Override
+	public Usuario update(Usuario usuario, MultipartFile imagen) throws Exception {
+		//Guardar imagen
+				if (uRepo.findById(usuario.getIdUsuario()) != null) {
+					return uRepo.save(usuario);
+				}else {
+					throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Ha ocurrido un error al guardar la receta");
+				}
 	}
 
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.edix.cookbook.models.Usuario;
 import com.edix.cookbook.services.IUsuarioService;
@@ -14,10 +15,26 @@ import java.util.List;
 @RestController
 @RequestMapping("/usuario")
 @CrossOrigin("*")
-public class UserController {
+public class UserRestController {
 
 	    @Autowired
 	    private IUsuarioService uService;
+	    
+	    /**
+	     * Este método obtiene un usuario
+	     * 
+	     * @param idUsuario
+	     * @return ResponseEntity con el Usuario 
+	     * @throws Exception si no encuentra el usuario o el idUsuario es nulo
+	     */
+		@GetMapping("/uno")
+		public ResponseEntity<?> getUserById (@RequestParam int idUsuario ) {
+			try {
+				return ResponseEntity.ok(uService.findById(idUsuario));
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
 	    
 	    /**
 	     * Método para validar el login de usuario
@@ -51,6 +68,18 @@ public class UserController {
 	            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
 	        }
 	    }
+	    
+	    @PostMapping("/guardarImagen")
+		// añadir parametros opcionales MultiFile
+		public ResponseEntity<?> guardarImagen(@RequestParam int idUsuario, @RequestParam("imagen") MultipartFile imagen) {
+			try {
+				return new ResponseEntity<>(uService.saveImage(idUsuario, imagen), HttpStatus.CREATED);
+
+			} catch (Exception e) {
+				return new ResponseEntity<>("Ocurrió un error al procesar la solicitud :" + e.getMessage(),
+						HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
     
 	    @GetMapping("/test")
 	    public String test(){

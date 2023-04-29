@@ -36,7 +36,7 @@ public class RecetasRestController {
 	 * Este método obtiene una receta
 	 *
 	 * @param idReceta El id de la receta
-	 * @return ResponseEntity con la receta o mensaje de error si no la encuentra
+	 * @return ResponseEntity con la receta 
 	 * @throws Exception
 	 */
 	@GetMapping("/una")
