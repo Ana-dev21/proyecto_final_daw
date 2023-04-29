@@ -43,7 +43,7 @@ public class Plan {
         this.descripcion = descripcion;
     }
 
-    public String getImagen() { return "localhost:8080/planes/" + imagen;}
+    public String getImagen() { return "http://localhost:8080/planes/" + imagen;}
 
     public void setImagen(String imagen) {this.imagen = imagen; }
 }

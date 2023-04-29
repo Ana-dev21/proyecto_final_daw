@@ -100,7 +100,7 @@ public class Receta implements Serializable {
 	}
 
 	public String getImagen() {
-		return "localhost:8080/uploads/" + this.imagen;
+		return "http://localhost:8080/uploads/" + this.imagen;
 	}
 
 	public void setImagen(String imagen) {

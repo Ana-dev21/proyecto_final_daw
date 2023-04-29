@@ -53,7 +53,7 @@ public class Categoria implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public String getImagen() { return "localhost:8080/categorias/" + imagen;}
+	public String getImagen() { return "http://localhost:8080/categorias/" + imagen;}
 
 	public void setImagen(String imagen) {
 		this.imagen = imagen;

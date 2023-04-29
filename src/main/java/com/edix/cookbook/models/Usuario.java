@@ -66,7 +66,7 @@ public class Usuario implements Serializable {
 	}
 
 	public String getImagen() {
-		return "localhost:8080/usuarios/" + imagen;
+		return "http://localhost:8080/usuarios/" + imagen;
 	}
 
 	public void setImagen(String imagen) {
