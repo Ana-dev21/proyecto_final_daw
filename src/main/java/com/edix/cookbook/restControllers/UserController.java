@@ -62,5 +62,10 @@ public class UserController {
 			return uService.findAll();
 		}
 
+		@GetMapping("/uno")
+		public Usuario buscarUno(@RequestParam int idUsuario){
+			return uService.findById(idUsuario);
+		}
+
 }
 

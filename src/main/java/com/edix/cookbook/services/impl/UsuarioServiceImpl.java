@@ -22,8 +22,7 @@ public class UsuarioServiceImpl implements IUsuarioService{
 
 	@Override
 	public Usuario findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return uRepo.findById(id).orElse(null);
 	}
 
 	@Override
