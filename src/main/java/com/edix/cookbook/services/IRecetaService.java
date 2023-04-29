@@ -38,8 +38,4 @@ public interface IRecetaService {
 
 	Receta saveImage(int idReceta, MultipartFile imagen) throws Exception;
 
-	
-	
-//	//TODO Repository Query
-//	List<Receta> findAllByIngredientesIn(List<Ingrediente> ingredientes);
 }
