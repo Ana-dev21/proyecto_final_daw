@@ -33,6 +33,11 @@ public class Usuario implements Serializable {
 
 	private String username;
 
+	@ManyToOne
+	@JoinColumn(name = "id_plan")
+	private Plan plan;
+
+
 	public Usuario() {
 	}
 
@@ -82,6 +87,14 @@ public class Usuario implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public Plan getPlan() {
+		return plan;
+	}
+
+	public void setPlan(Plan plan) {
+		this.plan = plan;
 	}
 
 }
