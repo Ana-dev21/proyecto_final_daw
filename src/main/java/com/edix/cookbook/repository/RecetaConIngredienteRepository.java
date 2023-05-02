@@ -2,6 +2,7 @@ package com.edix.cookbook.repository;
 
 import java.util.List;
 
+import com.edix.cookbook.models.Ingrediente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -17,5 +18,7 @@ public interface RecetaConIngredienteRepository extends JpaRepository<RecetasCon
 	@Query("SELECT ri.receta FROM RecetasConIngrediente ri where ri.ingrediente.idIngrediente in :listaIngredientes "
 			+ "GROUP BY ri.receta HAVING COUNT(DISTINCT ri.ingrediente.idIngrediente) = :numeroIng")
 	List<Receta> findAllByMultipleIngredientes(List<Integer> listaIngredientes, long numeroIng);
-	
+
+	@Query("SELECT ri FROM RecetasConIngrediente ri where ri.receta.idReceta = :idReceta")
+	List<RecetasConIngrediente> findAllIngredientesByReceta(int idReceta);
 }
