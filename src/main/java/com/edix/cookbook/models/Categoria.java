@@ -24,6 +24,8 @@ public class Categoria implements Serializable {
 
 	private String nombre;
 
+	private String imagen;
+
 	public Categoria() {
 	}
 
@@ -51,4 +53,7 @@ public class Categoria implements Serializable {
 		this.nombre = nombre;
 	}
 
+	public String getImagen() { return "http://localhost:8080/categorias/" + imagen;}
+
+	public void setImagen(String imagen) { this.imagen = imagen; }
 }

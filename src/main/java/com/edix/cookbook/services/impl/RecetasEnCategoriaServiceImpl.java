@@ -45,4 +45,9 @@ public class RecetasEnCategoriaServiceImpl implements IRecetasEnCategoriaService
 		return reCaRepo.findAllByCategoriaContaining(categoria);
 	}
 
+	@Override
+	public List<Receta> findAllByCategoriaIdCategoria(int idCategoria) {
+		return reCaRepo.findAllByCategoriaIdCategoria(idCategoria);
+	}
+
 }

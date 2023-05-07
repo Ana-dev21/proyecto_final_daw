@@ -1,5 +1,7 @@
 package com.edix.cookbook.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -48,7 +50,8 @@ public class Receta implements Serializable {
 	private Integer tiempoPreparacion;
 
 	//bi-directional many-to-one association to RecetasConIngrediente
-	@OneToMany(mappedBy="receta")
+	@OneToMany(mappedBy = "receta", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
 	private List<RecetasConIngrediente> recetasConIngredientes;
 
 	//uni-directional many-to-one association to Usuario
@@ -100,7 +103,7 @@ public class Receta implements Serializable {
 	}
 
 	public String getImagen() {
-		return "localhost:8080/uploads/" + this.imagen;
+		return "http://localhost:8080/uploads/" + this.imagen;
 	}
 
 	public void setImagen(String imagen) {

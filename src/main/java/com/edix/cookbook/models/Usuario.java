@@ -33,6 +33,11 @@ public class Usuario implements Serializable {
 
 	private String username;
 
+	@ManyToOne
+	@JoinColumn(name = "id_plan")
+	private Plan plan;
+
+
 	public Usuario() {
 	}
 
@@ -61,7 +66,7 @@ public class Usuario implements Serializable {
 	}
 
 	public String getImagen() {
-		return "localhost:8080/usuarios/" + imagen;
+		return "http://localhost:8080/usuarios/" + imagen;
 	}
 
 	public void setImagen(String imagen) {
@@ -82,6 +87,14 @@ public class Usuario implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public Plan getPlan() {
+		return plan;
+	}
+
+	public void setPlan(Plan plan) {
+		this.plan = plan;
 	}
 
 }

@@ -3,7 +3,7 @@ package com.edix.cookbook.models;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.math.BigDecimal;
 
@@ -34,9 +34,9 @@ public class RecetasConIngrediente implements Serializable {
 	private Ingrediente ingrediente;
 
 	//uni-directional many-to-one association to Receta
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="ID_RECETA")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_RECETA")
+	@JsonBackReference
 	private Receta receta;
 
 	public RecetasConIngrediente() {

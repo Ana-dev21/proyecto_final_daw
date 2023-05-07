@@ -16,4 +16,6 @@ public interface IRecetasEnCategoriaService {
 	void deleteById(int id);
 	
 	List<Receta> findAllByCategoriaContaining(String categoria);
+
+	List<Receta> findAllByCategoriaIdCategoria(int idCategoria);
 }

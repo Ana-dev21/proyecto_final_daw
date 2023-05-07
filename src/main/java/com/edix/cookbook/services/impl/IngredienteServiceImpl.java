@@ -21,13 +21,12 @@ public class IngredienteServiceImpl implements IIngredienteService{
 	}
 
 	@Override
-	public Receta findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Ingrediente findById(int id) {
+		return inRepo.findById(id).orElse(null);
 	}
 
 	@Override
-	public Receta save(Ingrediente ingrediente) {
+	public Ingrediente save(Ingrediente ingrediente) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -9,9 +9,9 @@ public interface IIngredienteService {
 	
 	List<Ingrediente> findAll();
 	
-	Receta findById(int id);
+	Ingrediente findById(int id);
 	
-	Receta save(Ingrediente ingrediente);
+	Ingrediente save(Ingrediente ingrediente);
 	
 	void deleteById(int id);
 }

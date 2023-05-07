@@ -30,11 +30,11 @@ public class UsuarioServiceImpl implements IUsuarioService{
 	@Override
 	public Usuario findById(int id) {
 		Optional<Usuario> usuarioOptional = uRepo.findById(id);
-        if (usuarioOptional.isPresent()) {
-            return usuarioOptional.get();
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No se encontró el usuario");
-        }
+		if (usuarioOptional.isPresent()) {
+			return usuarioOptional.get();
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No se encontró el usuario");
+		}
 	}
 
 	@Override

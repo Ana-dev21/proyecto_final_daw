@@ -110,7 +110,19 @@ public class RecetasRestController {
 	public ResponseEntity<?> getRecetasByCategoria (@RequestParam String categoria){
 		return ResponseEntity.ok(reCaService.findAllByCategoriaContaining(categoria));
 	}
-	
+
+	/**
+	 * Este método obtiene todas las recetas que contengan una determinada categoría
+	 *
+	 * @param idCategoria El id de la categoría por la que se filtrarán las recetas
+	 * @return ResponseEntity con una lista de las recetas que contengan la categoría proporcionada
+	 */
+	@GetMapping("/porIdCategoria")
+	public ResponseEntity<?> getRecetasByIdCategoria (@RequestParam int idCategoria){
+		return ResponseEntity.ok(reCaService.findAllByCategoriaIdCategoria(idCategoria));
+	}
+
+
 	/**
 	 * Este método obtiene todas las recetas que contengan un determinado ingrediente
 	 *
