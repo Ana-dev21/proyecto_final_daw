@@ -1,6 +1,5 @@
 package com.edix.cookbook.restControllers;
 
-import com.edix.cookbook.models.Receta;
 import com.edix.cookbook.models.RecetasConIngrediente;
 import com.edix.cookbook.services.IIngredienteService;
 import com.edix.cookbook.services.IRecetasConIngredienteService;
@@ -8,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.math.BigDecimal;
 
 @RestController

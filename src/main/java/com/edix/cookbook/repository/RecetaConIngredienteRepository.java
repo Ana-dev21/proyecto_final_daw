@@ -2,7 +2,6 @@ package com.edix.cookbook.repository;
 
 import java.util.List;
 
-import com.edix.cookbook.models.Ingrediente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
