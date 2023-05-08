@@ -22,6 +22,7 @@ public class UsuarioServiceImpl implements IUsuarioService{
 	
 	@Autowired UsuarioRepository uRepo;
 
+
 	@Override
 	public List<Usuario> findAll() {
 		return uRepo.findAll();
