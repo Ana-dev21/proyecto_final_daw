@@ -1,7 +1,13 @@
 package com.edix.cookbook.restControllers;
 
+
+
 import java.util.List;
 import com.edix.cookbook.models.Comentario;
+import com.edix.cookbook.models.Usuario;
+import com.edix.cookbook.repository.ComentarioRepository;
+import com.edix.cookbook.services.*;
+import com.edix.cookbook.services.impl.ComentarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.*;
 
 import com.edix.cookbook.models.Receta;
-import com.edix.cookbook.services.ICategoriaService;
-import com.edix.cookbook.services.IIngredienteService;
-import com.edix.cookbook.services.IRecetaService;
-import com.edix.cookbook.services.IRecetasConIngredienteService;
-import com.edix.cookbook.services.IRecetasEnCategoriaService;
 
 @RestController
 @RequestMapping("/recetas")
@@ -31,6 +32,9 @@ public class RecetasRestController {
 	@Autowired IIngredienteService inService;
 	@Autowired IRecetasEnCategoriaService reCaService;
 	@Autowired IRecetasConIngredienteService reCiService;
+	@Autowired
+	ComentarioServiceImpl coService;
+	@Autowired IUsuarioService usService;
 	
 	/**
 	 * Este método obtiene una receta
@@ -149,6 +153,27 @@ public class RecetasRestController {
 	public List<Comentario> ObtenerComentarios(@RequestParam int idReceta){
 		return reService.listarComentarios(idReceta);
 	}
-	
-	
+
+	@PostMapping("/alta/comentario")
+	public ResponseEntity<?> createComentario(@RequestBody Comentario comentario,
+									   @RequestParam int idReceta,
+									   @RequestParam int idUsuario) {
+		try {
+			Receta receta = reService.findById(idReceta);
+			Usuario user = usService.findById(idUsuario);
+			if (receta != null && user != null) {
+				Comentario nuevoComentario = new Comentario();
+				nuevoComentario.setReceta(receta);
+				nuevoComentario.setUsuario(user);
+				nuevoComentario.setTextoComentario(comentario.getTextoComentario());;
+				coService.save(nuevoComentario);
+				return new ResponseEntity<>(nuevoComentario, HttpStatus.CREATED);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>("Ocurrió un error al crear el comentario :" + e.getMessage(),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return null;
+	}
+
 }
