@@ -20,6 +20,7 @@ import com.edix.cookbook.services.IIngredienteService;
 import com.edix.cookbook.services.IRecetaService;
 import com.edix.cookbook.services.IRecetasConIngredienteService;
 import com.edix.cookbook.services.IRecetasEnCategoriaService;
+import com.edix.cookbook.services.IRecetasEnPlanesService;
 
 @RestController
 @RequestMapping("/recetas")
@@ -31,6 +32,7 @@ public class RecetasRestController {
 	@Autowired IIngredienteService inService;
 	@Autowired IRecetasEnCategoriaService reCaService;
 	@Autowired IRecetasConIngredienteService reCiService;
+	@Autowired IRecetasEnPlanesService rePlService;
 	
 	/**
 	 * Este método obtiene una receta
@@ -121,6 +123,17 @@ public class RecetasRestController {
 	public ResponseEntity<?> getRecetasByIdCategoria (@RequestParam int idCategoria){
 		return ResponseEntity.ok(reCaService.findAllByCategoriaIdCategoria(idCategoria));
 	}
+	
+	/**
+	 * Este método obtiene todas las recetas que estén asociadas a un plan
+	 *
+	 * @param idPlan El id de Plan por el que se filtrarán las recetas
+	 * @return ResponseEntity con una lista de las recetas con el Plan indicado
+	 */
+	@GetMapping("/porIdPlan")
+	public ResponseEntity<?> getRecetasByIdPlan (@RequestParam int idPlan){
+		return ResponseEntity.ok(rePlService.findAllByPlan(idPlan));
+	}
 
 
 	/**
@@ -144,6 +157,8 @@ public class RecetasRestController {
 	public ResponseEntity<?> getRecetasByMultipleIngredientes (@RequestBody List<Integer> listaIngredientes){
 		return ResponseEntity.ok(reCiService.findAllByMultipleIngredientes(listaIngredientes));
 	}
+	
+	
 
 	@GetMapping("/comentarios")
 	public List<Comentario> ObtenerComentarios(@RequestParam int idReceta){
