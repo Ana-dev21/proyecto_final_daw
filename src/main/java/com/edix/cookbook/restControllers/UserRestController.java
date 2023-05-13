@@ -1,5 +1,6 @@
 package com.edix.cookbook.restControllers;
 
+import com.edix.cookbook.services.impl.UsuarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,8 @@ public class UserRestController {
 
 	    @Autowired
 	    private IUsuarioService uService;
-	    
+
+
 	    /**
 	     * Este método obtiene un usuario
 	     * 
@@ -91,5 +93,9 @@ public class UserRestController {
 			return uService.findAll();
 		}
 
+		@GetMapping("/email")
+		public Usuario buscarPorEmail(@RequestParam String email){
+			return uService.findByEmail(email);
+		}
 }
 
