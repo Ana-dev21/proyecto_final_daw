@@ -1,26 +1,27 @@
 package com.edix.cookbook.models;
 
 import javax.persistence.*;
-import java.time.Instant;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "NOTIFICACIONES")
+@Table(name = "notificaciones")
 public class Notificacion {
     @Id
-    @Column(name = "ID_NOTIFICACION", nullable = false)
+    @Column(name = "id_notificacion", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_USUARIO")
-    private Usuario idUsuario;
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
-    @Column(name = "MENSAJE")
+    @Column(name = "mensaje")
     private String mensaje;
 
-    @Column(name = "FECHA_HORA")
-    private Instant fechaHora;
+    @Column(name = "fecha_hora")
+    private Timestamp fechaHora;
 
-    @Column(name = "LEIDA")
+    @Column(name = "leida")
     private Boolean leida;
 
     public Integer getId() {
@@ -31,12 +32,12 @@ public class Notificacion {
         this.id = id;
     }
 
-    public Usuario getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public String getMensaje() {
@@ -47,11 +48,11 @@ public class Notificacion {
         this.mensaje = mensaje;
     }
 
-    public Instant getFechaHora() {
+    public Timestamp getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(Instant fechaHora) {
+    public void setFechaHora(Timestamp fechaHora) {
         this.fechaHora = fechaHora;
     }
 
@@ -63,4 +64,13 @@ public class Notificacion {
         this.leida = leida;
     }
 
+    @Override
+    public String toString() {
+        return "Notificacion{" +
+                "id=" + id +
+                ", mensaje='" + mensaje + '\'' +
+                ", fechaHora=" + fechaHora +
+                ", leida=" + leida +
+                '}';
+    }
 }

@@ -20,34 +20,34 @@ public class RecetasConIngrediente implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID_RECETA_INCREDIENTE")
-	private int idRecetaIncrediente;
+	@Column(name="id_receta_ingrediente")
+	private int idRecetaIngrediente;
 
 	private BigDecimal cantidad;
 
-	@Column(name="UNIDAD_MEDIDA")
+	@Column(name="unidad_medida")
 	private String unidadMedida;
 
 	//uni-directional many-to-one association to Ingrediente
 	@ManyToOne
-	@JoinColumn(name="ID_INGREDIENTE")
+	@JoinColumn(name="id_ingrediente")
 	private Ingrediente ingrediente;
 
 	//uni-directional many-to-one association to Receta
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_RECETA")
+	@JoinColumn(name = "id_receta")
 	@JsonBackReference
 	private Receta receta;
 
 	public RecetasConIngrediente() {
 	}
 
-	public int getIdRecetaIncrediente() {
-		return this.idRecetaIncrediente;
+	public int getIdRecetaIngrediente() {
+		return this.idRecetaIngrediente;
 	}
 
-	public void setIdRecetaIncrediente(int idRecetaIncrediente) {
-		this.idRecetaIncrediente = idRecetaIncrediente;
+	public void setIdRecetaIngrediente(int idRecetaIngrediente) {
+		this.idRecetaIngrediente = idRecetaIngrediente;
 	}
 
 	public BigDecimal getCantidad() {

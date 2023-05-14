@@ -16,17 +16,17 @@ public class RecetasEnCategoria implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID_RECETA_CATEGORIA")
+	@Column(name="id_receta_categoria")
 	private int idRecetaCategoria;
 
 	//uni-directional many-to-one association to Categoria
 	@ManyToOne
-	@JoinColumn(name="ID_CATEGORIA")
+	@JoinColumn(name="id_categoria")
 	private Categoria categoria;
 
 	//uni-directional many-to-one association to Receta
 	@ManyToOne
-	@JoinColumn(name="ID_RECETA")
+	@JoinColumn(name="id_receta")
 	private Receta receta;
 
 	public RecetasEnCategoria() {

@@ -16,7 +16,7 @@ public class Ingrediente implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID_INGREDIENTE")
+	@Column(name="id_ingrediente")
 	private int idIngrediente;
 
 	@Lob

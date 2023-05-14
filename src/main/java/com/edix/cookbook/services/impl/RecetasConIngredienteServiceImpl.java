@@ -35,10 +35,10 @@ public class RecetasConIngredienteServiceImpl implements IRecetasConIngredienteS
 	@Override
 	public RecetasConIngrediente save(RecetasConIngrediente recetasConIngrediente) throws Exception {
 
-			if (recetasConIngrediente.getIdRecetaIncrediente() == 0) {
+			if (recetasConIngrediente.getIdRecetaIngrediente() == 0) {
 				return rciRepo.save(recetasConIngrediente);
 			}else {
-				throw new Exception("La Línea con id = " + recetasConIngrediente.getIdRecetaIncrediente() + " ya existe" );
+				throw new Exception("La Línea con id = " + recetasConIngrediente.getIdRecetaIngrediente() + " ya existe" );
 			}
 
 		}

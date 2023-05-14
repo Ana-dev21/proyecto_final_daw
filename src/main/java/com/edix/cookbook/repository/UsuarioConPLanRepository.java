@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UsuarioConPLanRepository  extends JpaRepository<UsuarioConPlan,Integer> {
 
-        UsuarioConPlan findByIdUsuario_IdUsuario(int idUsuario);
+        UsuarioConPlan findByUsuario_IdUsuario(int idUsuario);
 }

@@ -19,7 +19,7 @@ public class UsuarioConPLanServiceImpl implements IUsuarioConPLanService {
     public UsuarioConPlan findByIdUsuario(int idUsuario) {
         Usuario aux = uService.findById(idUsuario);
         try {
-            return uRepo.findByIdUsuario_IdUsuario(aux.getIdUsuario());
+            return uRepo.findByUsuario_IdUsuario(aux.getIdUsuario());
         } catch (Exception e) {
             return null;
         }

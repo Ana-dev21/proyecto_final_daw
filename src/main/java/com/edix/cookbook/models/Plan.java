@@ -3,21 +3,24 @@ package com.edix.cookbook.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "PLANES")
+@Table(name = "planes")
 public class Plan {
     @Id
-    @Column(name = "ID_PLAN", nullable = false)
+    @Column(name = "id_plan", nullable = false)
     private Integer id;
 
-    @Column(name = "NOMBRE")
+    @Column(name = "nombre")
     private String nombre;
 
     @Lob
-    @Column(name = "DESCRIPCION")
+    @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name = "IMAGEN")
+    @Column(name = "imagen")
     private String imagen;
+
+    @Column(name = "duracion")
+    private Integer duracion;
 
     public Integer getId() {
         return id;
@@ -34,6 +37,10 @@ public class Plan {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public Integer getDuracion() { return duracion; }
+
+    public void setDuracion(Integer duracion) { this.duracion = duracion; }
 
     public String getDescripcion() {
         return descripcion;

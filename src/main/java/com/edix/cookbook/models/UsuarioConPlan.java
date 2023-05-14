@@ -4,24 +4,23 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "USUARIO_CON_PLAN")
+@Table(name = "usuario_con_plan")
 public class UsuarioConPlan {
     @Id
-    @Column(name = "ID", nullable = false)
+    @Column(name = "id_usuario_con_plan", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_USUARIO")
-    private Usuario idUsuario;
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_PLAN")
-    private Plan idPlan;
+    @JoinColumn(name = "id_plan")
+    private Plan plan;
 
-    @Column(name = "progreso")
-    private Integer progreso;
 
-    @Column(name = "fechaInicio")
+    @Column(name = "fecha_inicio")
     private LocalDate fechaInicio;
 
     @Column(name = "estado", length = 20)
@@ -35,28 +34,20 @@ public class UsuarioConPlan {
         this.id = id;
     }
 
-    public Usuario getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public Plan getIdPlan() {
-        return idPlan;
+    public Plan getPlan() {
+        return plan;
     }
 
-    public void setIdPlan(Plan idPlan) {
-        this.idPlan = idPlan;
-    }
-
-    public Integer getProgreso() {
-        return progreso;
-    }
-
-    public void setProgreso(Integer progreso) {
-        this.progreso = progreso;
+    public void setPlan(Plan plan) {
+        this.plan = plan;
     }
 
     public LocalDate getFechaInicio() {
