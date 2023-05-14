@@ -21,6 +21,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.*;
 
 import com.edix.cookbook.models.Receta;
+import com.edix.cookbook.services.ICategoriaService;
+import com.edix.cookbook.services.IIngredienteService;
+import com.edix.cookbook.services.IRecetaService;
+import com.edix.cookbook.services.IRecetasConIngredienteService;
+import com.edix.cookbook.services.IRecetasEnCategoriaService;
+import com.edix.cookbook.services.IRecetasEnPlanesService;
 
 @RestController
 @RequestMapping("/recetas")
@@ -32,8 +38,8 @@ public class RecetasRestController {
 	@Autowired IIngredienteService inService;
 	@Autowired IRecetasEnCategoriaService reCaService;
 	@Autowired IRecetasConIngredienteService reCiService;
-	@Autowired
-	ComentarioServiceImpl coService;
+	@Autowired IRecetasEnPlanesService rePlService;
+	@Autowired ComentarioServiceImpl coService;
 	@Autowired IUsuarioService usService;
 	
 	/**
@@ -124,6 +130,17 @@ public class RecetasRestController {
 	@GetMapping("/porIdCategoria")
 	public ResponseEntity<?> getRecetasByIdCategoria (@RequestParam int idCategoria){
 		return ResponseEntity.ok(reCaService.findAllByCategoriaIdCategoria(idCategoria));
+	}
+	
+	/**
+	 * Este método obtiene todas las recetas que estén asociadas a un plan
+	 *
+	 * @param idPlan El id de Plan por el que se filtrarán las recetas
+	 * @return ResponseEntity con una lista de las recetas con el Plan indicado
+	 */
+	@GetMapping("/porIdPlan")
+	public ResponseEntity<?> getRecetasByIdPlan (@RequestParam int idPlan){
+		return ResponseEntity.ok(rePlService.findAllByPlan(idPlan));
 	}
 
 

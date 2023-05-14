@@ -1,7 +1,6 @@
 package com.edix.cookbook.services.impl;
 
 import com.edix.cookbook.models.Plan;
-import com.edix.cookbook.models.Usuario;
 import com.edix.cookbook.repository.PlanRepository;
 import com.edix.cookbook.services.IPlanService;
 import org.springframework.beans.factory.annotation.Autowired;

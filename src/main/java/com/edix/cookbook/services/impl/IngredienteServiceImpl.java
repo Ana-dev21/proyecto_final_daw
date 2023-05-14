@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edix.cookbook.models.Ingrediente;
-import com.edix.cookbook.models.Receta;
 import com.edix.cookbook.repository.IngredienteRepository;
 import com.edix.cookbook.services.IIngredienteService;
 
