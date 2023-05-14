@@ -50,4 +50,24 @@ public class NotificacionServiceImpl implements INotificacionService {
         notificacion.setLeida(true);
         return nRepo.save(notificacion);
     }
+
+    @Override
+    public Notificacion actualizarNotificacion(Notificacion notificacion) {
+        return nRepo.save(notificacion);
+    }
+
+    @Override
+    public boolean eliminarNotificacion(int idNotificacion) {
+        try {
+            nRepo.deleteById(idNotificacion);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public Notificacion findById(int idNotificacion) {
+        return nRepo.findById(idNotificacion).orElse(null);
+    }
 }

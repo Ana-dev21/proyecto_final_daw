@@ -1,5 +1,7 @@
 package com.edix.cookbook.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -9,7 +11,7 @@ public class Notificacion {
     @Id
     @Column(name = "id_notificacion", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idNotificacion;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")
@@ -24,12 +26,12 @@ public class Notificacion {
     @Column(name = "leida")
     private Boolean leida;
 
-    public Integer getId() {
-        return id;
+    public Integer getIdNotificacion() {
+        return idNotificacion;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdNotificacion(Integer idNotificacion) {
+        this.idNotificacion = idNotificacion;
     }
 
     public Usuario getUsuario() {
@@ -67,7 +69,7 @@ public class Notificacion {
     @Override
     public String toString() {
         return "Notificacion{" +
-                "id=" + id +
+                "id=" + idNotificacion +
                 ", mensaje='" + mensaje + '\'' +
                 ", fechaHora=" + fechaHora +
                 ", leida=" + leida +

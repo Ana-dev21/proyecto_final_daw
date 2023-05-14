@@ -21,7 +21,7 @@ public class RecetasConIngrediente implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_receta_ingrediente")
-	private int idRecetaIngrediente;
+	private int idRecetaIncrediente;
 
 	private BigDecimal cantidad;
 
@@ -42,12 +42,12 @@ public class RecetasConIngrediente implements Serializable {
 	public RecetasConIngrediente() {
 	}
 
-	public int getIdRecetaIngrediente() {
-		return this.idRecetaIngrediente;
+	public int getIdRecetaIncrediente() {
+		return this.idRecetaIncrediente;
 	}
 
-	public void setIdRecetaIngrediente(int idRecetaIngrediente) {
-		this.idRecetaIngrediente = idRecetaIngrediente;
+	public void setIdRecetaIncrediente(int idRecetaIncrediente) {
+		this.idRecetaIncrediente = idRecetaIncrediente;
 	}
 
 	public BigDecimal getCantidad() {

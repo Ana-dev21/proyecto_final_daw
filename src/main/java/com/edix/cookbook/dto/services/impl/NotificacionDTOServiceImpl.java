@@ -6,7 +6,6 @@ import com.edix.cookbook.models.Notificacion;
 import com.edix.cookbook.models.Usuario;
 import com.edix.cookbook.repository.NotificacionesRepository;
 import com.edix.cookbook.services.IUsuarioService;
-import com.edix.cookbook.services.impl.UsuarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,7 @@ public class NotificacionDTOServiceImpl implements INotificacionDTOService {
         public Notificacion convertirDTOaEntidad(NotificacionDTO notificacionDTO) {
             Usuario usuario = uService.findById(notificacionDTO.getIdUsuario());
             Notificacion notificacion = new Notificacion();
-            notificacion.setId(notificacionDTO.getId());
+            notificacion.setIdNotificacion(notificacionDTO.getIdNotificacion());
             notificacion.setUsuario(usuario);
             notificacion.setMensaje(notificacionDTO.getMensaje());
             notificacion.setFechaHora(notificacionDTO.getFechaHora());
@@ -30,7 +29,7 @@ public class NotificacionDTOServiceImpl implements INotificacionDTOService {
 
         public NotificacionDTO convertirEntidadADTO(Notificacion notificacion) {
             NotificacionDTO notificacionDTO = new NotificacionDTO();
-            notificacionDTO.setId(notificacion.getId());
+            notificacionDTO.setIdNotificacion(notificacion.getIdNotificacion());
             notificacionDTO.setIdUsuario(notificacion.getUsuario().getIdUsuario());
             notificacionDTO.setMensaje(notificacion.getMensaje());
             notificacionDTO.setFechaHora(notificacion.getFechaHora());

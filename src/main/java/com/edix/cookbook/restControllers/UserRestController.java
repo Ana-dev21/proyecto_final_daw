@@ -47,7 +47,7 @@ public class UserRestController {
 
 	/**
 	 * Método para validar el login de usuario
-	 * @param Usuario usuario a validar
+	 * @param usuario usuario a validar
 	 * @return Usuario si existe, Mensaje de error si no existe
 	 */
 	@PostMapping("/loginValidation")
@@ -65,7 +65,7 @@ public class UserRestController {
 
 	/**
 	 * Método para registrar un usuario nuevo.
-	 * @param Usuario usuario a registrar
+	 * @param usuario usuario a registrar
 	 * @return	Usuario si se ha creado correctamente, mensaje de error si no se ha podido crear
 	 */
 	@PostMapping("/register")
