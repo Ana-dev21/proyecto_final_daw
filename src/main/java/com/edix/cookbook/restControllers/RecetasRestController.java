@@ -1,7 +1,13 @@
 package com.edix.cookbook.restControllers;
 
+
+
 import java.util.List;
 import com.edix.cookbook.models.Comentario;
+import com.edix.cookbook.models.Usuario;
+import com.edix.cookbook.repository.ComentarioRepository;
+import com.edix.cookbook.services.*;
+import com.edix.cookbook.services.impl.ComentarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +26,7 @@ import com.edix.cookbook.services.IIngredienteService;
 import com.edix.cookbook.services.IRecetaService;
 import com.edix.cookbook.services.IRecetasConIngredienteService;
 import com.edix.cookbook.services.IRecetasEnCategoriaService;
+import com.edix.cookbook.services.IRecetasEnPlanesService;
 
 @RestController
 @RequestMapping("/recetas")
@@ -31,6 +38,9 @@ public class RecetasRestController {
 	@Autowired IIngredienteService inService;
 	@Autowired IRecetasEnCategoriaService reCaService;
 	@Autowired IRecetasConIngredienteService reCiService;
+	@Autowired IRecetasEnPlanesService rePlService;
+	@Autowired ComentarioServiceImpl coService;
+	@Autowired IUsuarioService usService;
 	
 	/**
 	 * Este método obtiene una receta
@@ -93,8 +103,8 @@ public class RecetasRestController {
 	//añadir parametros opcionales MultiFile
     public ResponseEntity<?> updateReceta(@RequestBody Receta receta) {
         try {
-			Receta recetaGuardada = reService.update(receta);
-			return new ResponseEntity<>(recetaGuardada, HttpStatus.CREATED);
+			reService.update(receta);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>("Ocurrió un error al procesar la solicitud :" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -120,6 +130,17 @@ public class RecetasRestController {
 	@GetMapping("/porIdCategoria")
 	public ResponseEntity<?> getRecetasByIdCategoria (@RequestParam int idCategoria){
 		return ResponseEntity.ok(reCaService.findAllByCategoriaIdCategoria(idCategoria));
+	}
+	
+	/**
+	 * Este método obtiene todas las recetas que estén asociadas a un plan
+	 *
+	 * @param idPlan El id de Plan por el que se filtrarán las recetas
+	 * @return ResponseEntity con una lista de las recetas con el Plan indicado
+	 */
+	@GetMapping("/porIdPlan")
+	public ResponseEntity<?> getRecetasByIdPlan (@RequestParam int idPlan){
+		return ResponseEntity.ok(rePlService.findAllByPlan(idPlan));
 	}
 
 
@@ -149,6 +170,34 @@ public class RecetasRestController {
 	public List<Comentario> ObtenerComentarios(@RequestParam int idReceta){
 		return reService.listarComentarios(idReceta);
 	}
-	
-	
+
+	@PostMapping("/alta/comentario")
+	public ResponseEntity<?> createComentario(@RequestBody Comentario comentario,
+									   @RequestParam int idReceta,
+									   @RequestParam int idUsuario) {
+		try {
+			Receta receta = reService.findById(idReceta);
+			Usuario user = usService.findById(idUsuario);
+			if (receta != null && user != null) {
+				Comentario nuevoComentario = new Comentario();
+				nuevoComentario.setReceta(receta);
+				nuevoComentario.setUsuario(user);
+				nuevoComentario.setTextoComentario(comentario.getTextoComentario());;
+				coService.save(nuevoComentario);
+				return new ResponseEntity<>(nuevoComentario, HttpStatus.CREATED);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>("Ocurrió un error al crear el comentario :" + e.getMessage(),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return null;
+	}
+
+	@DeleteMapping("/eliminar")
+	public void eliminarReceta (@RequestParam int idReceta){
+		try {
+			reService.deleteById(idReceta);
+		}catch (Exception e) {
+			throw new RuntimeException(e);}
+	}
 }

@@ -4,6 +4,7 @@ import com.edix.cookbook.models.Notificacion;
 import com.edix.cookbook.models.UsuarioConPlan;
 import com.edix.cookbook.services.INotificacionService;
 import com.edix.cookbook.services.IUsuarioConPLanService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -126,5 +127,9 @@ public class UserRestController {
 		}
 	}
 
+		@GetMapping("/email")
+		public Usuario buscarPorEmail(@RequestParam String email){
+			return uService.findByEmail(email);
+		}
 }
 
