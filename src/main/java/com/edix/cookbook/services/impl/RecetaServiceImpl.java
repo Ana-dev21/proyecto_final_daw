@@ -23,7 +23,7 @@ import com.edix.cookbook.services.IRecetaService;
 public class RecetaServiceImpl implements IRecetaService{
 
 	@Autowired RecetaRepository reRepo;
-	
+
 	@Override
 	public List<Receta> findAll() {
 		return reRepo.findAll();
@@ -63,10 +63,16 @@ public class RecetaServiceImpl implements IRecetaService{
 	
 	@Override
 	public Receta update(Receta receta) throws Exception {
-		if (reRepo.findById(receta.getIdReceta()) != null) {
-			return reRepo.save(receta);
-		}else {
-			throw new Exception("Ha ocurrido un error al actualizar la receta" );
+		Receta recetaExistente = reRepo.findById(receta.getIdReceta()).orElse(null);
+		try{
+			if(recetaExistente != null){
+				recetaExistente.setIdReceta(receta.getIdReceta());
+				return reRepo.save(receta);
+			}else{
+				throw new Exception("La receta con id = " + receta.getIdReceta() + " no existe");
+			}
+		}catch (Exception e){
+			throw new Exception(e);
 		}
 	}
 
@@ -111,8 +117,7 @@ public class RecetaServiceImpl implements IRecetaService{
 	
 	@Override
 	public void deleteById(int id) {
-		// TODO Auto-generated method stub
-		
+		reRepo.deleteById(id);
 	}
 
 	@Override

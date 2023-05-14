@@ -97,8 +97,8 @@ public class RecetasRestController {
 	//añadir parametros opcionales MultiFile
     public ResponseEntity<?> updateReceta(@RequestBody Receta receta) {
         try {
-			Receta recetaGuardada = reService.update(receta);
-			return new ResponseEntity<>(recetaGuardada, HttpStatus.CREATED);
+			reService.update(receta);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>("Ocurrió un error al procesar la solicitud :" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -176,4 +176,11 @@ public class RecetasRestController {
 		return null;
 	}
 
+	@DeleteMapping("/eliminar")
+	public void eliminarReceta (@RequestParam int idReceta){
+		try {
+			reService.deleteById(idReceta);
+		}catch (Exception e) {
+			throw new RuntimeException(e);}
+	}
 }
