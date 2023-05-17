@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,6 +22,7 @@ import com.edix.cookbook.services.IUsuarioService;
 public class UsuarioServiceImpl implements IUsuarioService{
 	
 	@Autowired UsuarioRepository uRepo;
+	@Autowired PasswordEncoder passwordEncoder;
 
 
 	@Override
@@ -42,6 +44,7 @@ public class UsuarioServiceImpl implements IUsuarioService{
 	public Usuario registerNewUsuario (Usuario usuario) throws Exception {
 		if (!this.checkIfUserExists(usuario) && usuario != null) {
 			Calendar cal = Calendar.getInstance();
+			usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
 	        usuario.setFechaRegistro(cal.getTime());
 			return uRepo.save(usuario);
 		}else

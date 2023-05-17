@@ -1,12 +1,14 @@
 package com.edix.cookbook.restControllers;
 
-import com.edix.cookbook.services.impl.UsuarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.edix.cookbook.config.AccountCredentials;
 import com.edix.cookbook.models.Usuario;
 import com.edix.cookbook.services.IUsuarioService;
 
@@ -20,6 +22,8 @@ public class UserRestController {
 
 	    @Autowired
 	    private IUsuarioService uService;
+	    @Autowired
+	    private PasswordEncoder passwordEncoder;
 
 
 	    /**
@@ -54,6 +58,13 @@ public class UserRestController {
 	        } catch (Exception ex) {
 	            return new ResponseEntity<>("Ocurrió un error al procesar la solicitud", HttpStatus.INTERNAL_SERVER_ERROR);
 	        }
+	    }
+	    
+	    @PostMapping("/login")
+	    public ResponseEntity<String> loginApplication(@RequestBody AccountCredentials accountCredentials) {
+
+	        return ResponseEntity.ok().body(accountCredentials.getUsername() + "\n" + accountCredentials.getPassword() + "\n" + "You can access this page");
+
 	    }
 	    
 	    /**
@@ -97,5 +108,12 @@ public class UserRestController {
 		public Usuario buscarPorEmail(@RequestParam String email){
 			return uService.findByEmail(email);
 		}
+		
+	    @PostMapping("/encrypt")
+	    public String encryptPassword(@RequestBody String password) {
+	        
+	        String encryptedPassword = passwordEncoder.encode(password);
+	        return encryptedPassword;
+	    }
 }
 
