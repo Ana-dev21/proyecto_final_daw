@@ -18,13 +18,13 @@ public class Usuario implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID_USUARIO")
+	@Column(name="id_usuario")
 	private int idUsuario;
 
 	private String email;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="FECHA_REGISTRO")
+	@Column(name="fecha_registro")
 	private Date fechaRegistro;
 	
 	private String imagen;

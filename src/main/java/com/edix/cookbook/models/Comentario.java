@@ -17,25 +17,25 @@ public class Comentario implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID_COMENTARIO")
+	@Column(name="id_comentario")
 	private int idComentario;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="FECHA_PUBLICACION")
+	@Column(name="fecha_publicacion")
 	private Date fechaPublicacion;
 
 	@Lob
-	@Column(name="TEXTO_COMENTARIO")
+	@Column(name="texto_comentario")
 	private String textoComentario;
 
 	//uni-directional many-to-one association to Receta
 	@ManyToOne
-	@JoinColumn(name="ID_RECETA")
+	@JoinColumn(name="id_receta")
 	private Receta receta;
 
 	//uni-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="ID_USUARIO")
+	@JoinColumn(name="id_usuario")
 	private Usuario usuario;
 
 	public Comentario() {

@@ -16,7 +16,7 @@ public class Categoria implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID_CATEGORIA")
+	@Column(name="id_categoria")
 	private int idCategoria;
 
 	@Lob

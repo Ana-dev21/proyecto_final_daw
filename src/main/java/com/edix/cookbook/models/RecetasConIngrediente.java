@@ -20,22 +20,22 @@ public class RecetasConIngrediente implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID_RECETA_INCREDIENTE")
+	@Column(name="id_receta_ingrediente")
 	private int idRecetaIncrediente;
 
 	private BigDecimal cantidad;
 
-	@Column(name="UNIDAD_MEDIDA")
+	@Column(name="unidad_medida")
 	private String unidadMedida;
 
 	//uni-directional many-to-one association to Ingrediente
 	@ManyToOne
-	@JoinColumn(name="ID_INGREDIENTE")
+	@JoinColumn(name="id_ingrediente")
 	private Ingrediente ingrediente;
 
 	//uni-directional many-to-one association to Receta
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID_RECETA")
+	@JoinColumn(name = "id_receta")
 	@JsonBackReference
 	private Receta receta;
 

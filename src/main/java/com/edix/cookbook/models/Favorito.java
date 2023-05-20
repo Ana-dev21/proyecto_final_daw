@@ -3,19 +3,19 @@ package com.edix.cookbook.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "FAVORITOS")
+@Table(name = "favoritos")
 public class Favorito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_FAVORITOS", nullable = false)
+    @Column(name = "id_favoritos", nullable = false)
     private Integer idFavorito;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ID_USUARIO", nullable = false)
+    @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ID_RECETA", nullable = false)
+    @JoinColumn(name = "id_receta", nullable = false)
     private Receta receta;
 
     public Integer getIdFavorito() {

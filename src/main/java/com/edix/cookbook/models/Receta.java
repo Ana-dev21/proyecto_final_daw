@@ -21,7 +21,7 @@ public class Receta implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID_RECETA")
+	@Column(name="id_receta")
 	private int idReceta;
 
 	private BigDecimal calorias;
@@ -43,10 +43,10 @@ public class Receta implements Serializable {
 	private BigDecimal proteinas;
 
 
-	@Column(name="TIEMPO_COCCION")
+	@Column(name="tiempo_coccion")
 	private Integer tiempoCoccion;
 
-	@Column(name="TIEMPO_PREPARACION")
+	@Column(name="tiempo_preparacion")
 	private Integer tiempoPreparacion;
 
 	//bi-directional many-to-one association to RecetasConIngrediente
@@ -56,7 +56,7 @@ public class Receta implements Serializable {
 
 	//uni-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="ID_USUARIO")
+	@JoinColumn(name="id_usuario")
 	private Usuario usuario;
 
 	public Receta() {
