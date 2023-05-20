@@ -113,8 +113,7 @@ public class RecetaServiceImpl implements IRecetaService{
 		}
 		
 	}
-	
-	
+
 	@Override
 	public void deleteById(int id) {
 		reRepo.deleteById(id);
@@ -149,4 +148,8 @@ public class RecetaServiceImpl implements IRecetaService{
 		return reRepo.comentariosEnReceta(idReceta);
 	}
 
+	@Override
+	public List<Receta> findAllByUsuario_IdUsuario(int idUsuario) {
+		return reRepo.findAllByUsuario_IdUsuario(idUsuario);
+	}
 }

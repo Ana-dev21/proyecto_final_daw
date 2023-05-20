@@ -200,4 +200,9 @@ public class RecetasRestController {
 		}catch (Exception e) {
 			throw new RuntimeException(e);}
 	}
+
+	@GetMapping("/porAutor")
+	public ResponseEntity<?> getRecetasByAutor (@RequestParam int idUsuario){
+		return ResponseEntity.ok(reService.findAllByUsuario_IdUsuario(idUsuario));
+	}
 }

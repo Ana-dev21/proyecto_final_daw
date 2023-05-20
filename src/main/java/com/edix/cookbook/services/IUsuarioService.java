@@ -32,6 +32,5 @@ public interface IUsuarioService{
 
 	void eliminarComentariosUsuario(int idUsuario);
 
-	
-
+	Usuario updateUsuario(Usuario usuario) throws Exception;
 }

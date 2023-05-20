@@ -38,4 +38,5 @@ public interface IRecetaService {
 
 	Receta saveImage(int idReceta, MultipartFile imagen) throws Exception;
 
+	List<Receta> findAllByUsuario_IdUsuario(int idUsuario);
 }

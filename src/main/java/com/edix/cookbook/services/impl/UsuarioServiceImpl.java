@@ -129,6 +129,15 @@ public class UsuarioServiceImpl implements IUsuarioService{
 		}
 	}
 
+	@Override
+	public Usuario updateUsuario(Usuario usuario) throws Exception {
+		if (uRepo.findById(usuario.getIdUsuario()) != null) {
+			return uRepo.save(usuario);
+		}else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Ha ocurrido un error al guardar la receta");
+		}
+	}
+
 
 	@Override
 	public Usuario update(Usuario usuario) throws Exception {
@@ -150,5 +159,6 @@ public class UsuarioServiceImpl implements IUsuarioService{
 					throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Ha ocurrido un error al guardar la receta");
 				}
 	}
+
 
 }

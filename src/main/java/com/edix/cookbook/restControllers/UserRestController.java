@@ -153,5 +153,15 @@ public class UserRestController {
 			return "Error al eliminar el usuario";
 		}
 	}
+
+	@PutMapping("/actualizar")
+	public ResponseEntity<?> actualizarUsuario(@RequestBody Usuario usuario) {
+		try {
+			System.out.println(usuario);
+			return ResponseEntity.ok(uService.updateUsuario(usuario));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
 

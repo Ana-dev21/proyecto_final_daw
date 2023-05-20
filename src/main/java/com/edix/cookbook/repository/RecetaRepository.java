@@ -25,7 +25,7 @@ public interface RecetaRepository extends JpaRepository<Receta,Integer>{
 	@Query("SELECT c FROM Comentario c where c.receta.idReceta = :idReceta")
 	List<Comentario> comentariosEnReceta(int idReceta);
 
-
-	
+	@Query("SELECT r FROM Receta r WHERE r.usuario.idUsuario = :idUsuario")
+	List<Receta> findAllByUsuario_IdUsuario(int idUsuario);
 }
 
