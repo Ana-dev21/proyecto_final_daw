@@ -58,10 +58,12 @@ public class UsuarioServiceImpl implements IUsuarioService{
 	}
 
 	@Override
-	public void deleteById(int id) {
-		if(this.findById(id) != null) {
+	public boolean deleteById(int id) {
+		if (this.findById(id) != null) {
 			uRepo.deleteById(id);
-		}
+			return true;
+		}else
+			return false;
 	}
 
 	@Override
@@ -122,10 +124,17 @@ public class UsuarioServiceImpl implements IUsuarioService{
 	}
 
 	@Override
-	public void eliminarComentariosUsuario(int idUsuario) {
+	public boolean eliminarComentariosUsuario(int idUsuario) {
 		List<Comentario> comentarios = uRepo.obtenerComentariosUsuario(idUsuario);
-		for( Comentario comentario : comentarios) {
-			coRepo.delete(comentario);
+		if (comentarios != null) {
+			for (Comentario comentario : comentarios) {
+				coRepo.deleteById(comentario.getIdComentario());
+			}
+			return true;
+		}else if (comentarios == null) {
+			return true;
+		}else {
+			return false;
 		}
 	}
 

@@ -2,7 +2,6 @@ package com.edix.cookbook.services;
 
 import java.util.List;
 
-import com.edix.cookbook.models.Comentario;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.edix.cookbook.models.Usuario;
@@ -18,7 +17,7 @@ public interface IUsuarioService{
 	
 	Usuario update(Usuario usuario, MultipartFile imagen) throws Exception;
 	
-	void deleteById(int id);
+	boolean deleteById(int id);
 
 	Usuario login(String email, String password);
 	
@@ -30,7 +29,7 @@ public interface IUsuarioService{
 
 	Usuario saveImage(int idUsuario, MultipartFile imagen) throws Exception;
 
-	void eliminarComentariosUsuario(int idUsuario);
+	boolean eliminarComentariosUsuario(int idUsuario);
 
 	Usuario updateUsuario(Usuario usuario) throws Exception;
 }

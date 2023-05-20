@@ -136,23 +136,38 @@ public class UserRestController {
 	}
 
 	@DeleteMapping("/eliminar/comentarios")
-	public String eliminarTodosComentarios(@RequestParam int idUsuario) {
-		try{
-			uService.eliminarComentariosUsuario(idUsuario);
-			return "Todod los comentatarios de usuario eliminados";
-		}catch (Exception e){
-			return "Error al eliminar los comentarios de usuario";
+	public ResponseEntity<?> eliminarComentarios(@RequestParam int idUsuario) {
+		try {
+			if (uService.eliminarComentariosUsuario(idUsuario)) {
+				return ResponseEntity.ok(uService.findById(idUsuario));
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 	}
+
+	/**
+	 * Método para eliminar un usuario
+	 * @param idUsuario id del usuario a eliminar
+	 * @return ResponseEntity con el mensaje de éxito o error
+	 */
 	@DeleteMapping("/eliminar/uno")
-	public String eliminarUsuario(@RequestParam int idUsuario) {
-		try{
-			uService.deleteById(idUsuario);
-			return "Usuario eliminado";
-		}catch (Exception e){
-			return "Error al eliminar el usuario";
+	public ResponseEntity<String> eliminarUsuario(@RequestParam int idUsuario) {
+		try {
+			if (uService.deleteById(idUsuario)) {
+				return new ResponseEntity<>( HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>("Ocurrió un error al procesar la solicitud :" + e.getMessage(),
+					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+
 
 	@PutMapping("/actualizar")
 	public ResponseEntity<?> actualizarUsuario(@RequestBody Usuario usuario) {
