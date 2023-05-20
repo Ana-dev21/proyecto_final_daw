@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
+import com.edix.cookbook.models.Comentario;
+import com.edix.cookbook.repository.ComentarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ import com.edix.cookbook.services.IUsuarioService;
 public class UsuarioServiceImpl implements IUsuarioService{
 	
 	@Autowired UsuarioRepository uRepo;
+	@Autowired
+	ComentarioRepository coRepo;
 
 
 	@Override
@@ -39,6 +43,11 @@ public class UsuarioServiceImpl implements IUsuarioService{
 	}
 
 	@Override
+	public Usuario save(Usuario usuario) {
+		return null;
+	}
+
+	@Override
 	public Usuario registerNewUsuario (Usuario usuario) throws Exception {
 		if (!this.checkIfUserExists(usuario) && usuario != null) {
 			Calendar cal = Calendar.getInstance();
@@ -50,8 +59,9 @@ public class UsuarioServiceImpl implements IUsuarioService{
 
 	@Override
 	public void deleteById(int id) {
-		// TODO Auto-generated method stub
-		
+		if(this.findById(id) != null) {
+			uRepo.deleteById(id);
+		}
 	}
 
 	@Override
@@ -74,12 +84,6 @@ public class UsuarioServiceImpl implements IUsuarioService{
 	public Usuario findByUsername(String username) {
 		Usuario usuario = uRepo.findByUsername(username);
 		return usuario;
-	}
-
-	@Override
-	public Usuario save(Usuario usuario) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	private Boolean checkIfUserExists(Usuario usuario) {
@@ -116,7 +120,16 @@ public class UsuarioServiceImpl implements IUsuarioService{
 		}
 		
 	}
-	
+
+	@Override
+	public void eliminarComentariosUsuario(int idUsuario) {
+		List<Comentario> comentarios = uRepo.obtenerComentariosUsuario(idUsuario);
+		for( Comentario comentario : comentarios) {
+			coRepo.delete(comentario);
+		}
+	}
+
+
 	@Override
 	public Usuario update(Usuario usuario) throws Exception {
 	

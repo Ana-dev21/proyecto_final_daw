@@ -18,32 +18,25 @@ public class ComentarioServiceImpl implements IComentarioService{
 	@Autowired
 	ComentarioRepository coRepository;
 
-
-
 	@Override
 	public List<Comentario> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return coRepository.findAll();
 	}
-
 	@Override
 	public Comentario findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return coRepository.findById(id).orElse(null);
 	}
 
 	@Override
 	public Comentario save(Comentario comentario) {
-
 		return coRepository.save(comentario);
 	}
 
-
-
 	@Override
 	public void deleteById(int id) {
-		// TODO Auto-generated method stub
-		
+		coRepository.deleteById(id);
 	}
+
+
 
 }

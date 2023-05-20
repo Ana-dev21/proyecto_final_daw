@@ -1,5 +1,6 @@
 package com.edix.cookbook.restControllers;
 
+import com.edix.cookbook.services.IComentarioService;
 import com.edix.cookbook.services.impl.UsuarioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ public class UserRestController {
 
 	    @Autowired
 	    private IUsuarioService uService;
+		@Autowired IComentarioService coService;
 
 
 	    /**
@@ -97,5 +99,40 @@ public class UserRestController {
 		public Usuario buscarPorEmail(@RequestParam String email){
 			return uService.findByEmail(email);
 		}
+
+		@DeleteMapping("/eliminar")
+		public String eliminarUsuario(@RequestParam int idUsuario) {
+			try {
+					uService.deleteById(idUsuario);
+					return ("Usuario eliminado correctamente");
+
+			} catch (Exception e) {
+				return "Ocurrió un error al procesar la solicitud :" + e.getMessage();
+			}
+		}
+
+		@DeleteMapping("/eliminar/comentarios")
+		public String borrarTodosAsociados(@RequestParam int idUsuario) {
+			try {
+				if (uService.findById(idUsuario) != null) {
+					uService.eliminarComentariosUsuario(idUsuario);
+					return "Comentarios eliminados";
+				}
+			} catch (Exception e) {
+				return "comentarios no eliminados";
+			}
+			return null;
+		}
+
+		@DeleteMapping("eliminar/uno")
+		public String eliminarUnComentario(@RequestParam int idComentario){
+			try {
+				coService.deleteById(idComentario);
+				return "Comentario eliminado";
+			} catch (Exception e) {
+				return "Comentario no eliminado";
+			}
+		}
+
 }
 
