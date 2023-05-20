@@ -2,6 +2,7 @@ package com.edix.cookbook.restControllers;
 
 import com.edix.cookbook.models.Notificacion;
 import com.edix.cookbook.models.UsuarioConPlan;
+import com.edix.cookbook.services.IComentarioService;
 import com.edix.cookbook.services.INotificacionService;
 import com.edix.cookbook.services.IUsuarioConPLanService;
 
@@ -28,6 +29,8 @@ public class UserRestController {
 	private IUsuarioConPLanService uConPlanService;
 	@Autowired
 	private INotificacionService nService;
+	@Autowired
+	private IComentarioService coService;
 
 	/**
 	 * Este método obtiene un usuario
@@ -127,9 +130,28 @@ public class UserRestController {
 		}
 	}
 
-		@GetMapping("/email")
-		public Usuario buscarPorEmail(@RequestParam String email){
-			return uService.findByEmail(email);
+	@GetMapping("/email")
+	public Usuario buscarPorEmail(@RequestParam String email){
+		return uService.findByEmail(email);
+	}
+
+	@DeleteMapping("/eliminar/comentarios")
+	public String eliminarTodosComentarios(@RequestParam int idUsuario) {
+		try{
+			uService.eliminarComentariosUsuario(idUsuario);
+			return "Todod los comentatarios de usuario eliminados";
+		}catch (Exception e){
+			return "Error al eliminar los comentarios de usuario";
 		}
+	}
+	@DeleteMapping("/eliminar/uno")
+	public String eliminarUsuario(@RequestParam int idUsuario) {
+		try{
+			uService.deleteById(idUsuario);
+			return "Usuario eliminado";
+		}catch (Exception e){
+			return "Error al eliminar el usuario";
+		}
+	}
 }
 
