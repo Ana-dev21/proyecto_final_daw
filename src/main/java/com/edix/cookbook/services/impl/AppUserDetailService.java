@@ -18,15 +18,15 @@ public class AppUserDetailService  implements UserDetailsService{
 	    private UsuarioRepository userRepository;
 
 	    @Override
-	    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-	        Usuario user = userRepository.findByUsername(username);
+	        Usuario user = userRepository.findByEmail(email);
 	        if (user == null) {
-	            throw new UsernameNotFoundException("User '" + username + "' not found");
+	            throw new UsernameNotFoundException("User '" + email + "' not found");
 	        }
 
 	        return org.springframework.security.core.userdetails.User
-	                .withUsername(username)
+	                .withUsername(user.getEmail())
 	                .password(user.getPassword())
 	                .authorities(Collections.emptyList())
 	                .accountExpired(false)

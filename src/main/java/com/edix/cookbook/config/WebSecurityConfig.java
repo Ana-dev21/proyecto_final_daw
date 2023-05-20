@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,19 +26,24 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests()
+        http.cors().and().csrf().disable().authorizeRequests()
         .antMatchers(HttpMethod.POST, "/usuario/login").permitAll()
+        .antMatchers(HttpMethod.POST, "/usuario/loginValidation").permitAll()
         .antMatchers(HttpMethod.POST, "/usuario/encrypt").permitAll()
         .antMatchers(HttpMethod.POST, "/usuario/register").permitAll()
         .anyRequest().authenticated()
         .and()
-        .addFilterBefore(new JWTLoginFilter("/usuario/login", authenticationManager()),
-                UsernamePasswordAuthenticationFilter.class)
+//        .addFilterBefore(new JWTLoginFilter("/usuario/login", authenticationManager()),
+//                UsernamePasswordAuthenticationFilter.class)
         // And filter other requests to check the presence of JWT in header
         .addFilterBefore(new JWTAuthenticationFilter(),
                 UsernamePasswordAuthenticationFilter.class);
 	}
 	
+	@Bean
+    protected AuthenticationManager getAuthenticationManager() throws Exception {
+        return authenticationManager();
+    }
 	
 	@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
