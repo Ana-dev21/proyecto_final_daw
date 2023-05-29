@@ -3,6 +3,7 @@ package com.edix.cookbook.services.impl;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -11,11 +12,14 @@ import com.edix.cookbook.models.Comentario;
 import com.edix.cookbook.repository.ComentarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.edix.cookbook.models.Usuario;
+import com.edix.cookbook.models.UsuarioConRoles;
+import com.edix.cookbook.repository.RolRepository;
 import com.edix.cookbook.repository.UsuarioRepository;
 import com.edix.cookbook.services.IUsuarioService;
 
@@ -23,8 +27,10 @@ import com.edix.cookbook.services.IUsuarioService;
 public class UsuarioServiceImpl implements IUsuarioService{
 	
 	@Autowired UsuarioRepository uRepo;
-	@Autowired
-	ComentarioRepository coRepo;
+	@Autowired ComentarioRepository coRepo;
+	@Autowired PasswordEncoder passwordEncoder;
+	@Autowired RolRepository rRepo;
+	
 
 
 	@Override
@@ -51,8 +57,13 @@ public class UsuarioServiceImpl implements IUsuarioService{
 	public Usuario registerNewUsuario (Usuario usuario) throws Exception {
 		if (!this.checkIfUserExists(usuario) && usuario != null) {
 			Calendar cal = Calendar.getInstance();
-	        usuario.setFechaRegistro(cal.getTime());
-			return uRepo.save(usuario);
+			Usuario newUsuario = (Usuario) usuario.clone();
+			newUsuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+			List<UsuarioConRoles> ucroles = new ArrayList<UsuarioConRoles>();
+			ucroles.add(new UsuarioConRoles(rRepo.findById(2).get(),newUsuario)); 
+			newUsuario.setUsuarioConRoles(ucroles);
+			newUsuario.setFechaRegistro(cal.getTime());
+			return uRepo.save(newUsuario);
 		}else
 			throw new Exception ("El mail o username ya existe");
 	}

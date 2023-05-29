@@ -7,5 +7,7 @@
 		<class>com.edix.cookbook.models.RecetasConIngrediente</class>
 		<class>com.edix.cookbook.models.RecetasEnCategoria</class>
 		<class>com.edix.cookbook.models.Usuario</class>
+		<class>com.edix.cookbook.models.Rol</class>
+		<class>com.edix.cookbook.models.UsuarioConRoles</class>
 	</persistence-unit>
 </persistence>

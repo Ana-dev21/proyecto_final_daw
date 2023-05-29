@@ -18,4 +18,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer>{
 
 	@Query("SELECT c from Comentario  c where c.usuario.idUsuario = :idUsuario")
 	List<Comentario> obtenerComentariosUsuario(int idUsuario);
+	
 }
