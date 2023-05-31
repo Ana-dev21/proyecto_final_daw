@@ -9,9 +9,12 @@ import com.edix.cookbook.services.IUsuarioConPLanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +27,7 @@ import com.edix.cookbook.models.Usuario;
 import com.edix.cookbook.services.IUsuarioService;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -81,17 +85,27 @@ public class UserRestController {
 //   }
 	
     @PostMapping("/login")
-    public ResponseEntity<Usuario> loginApplication(@RequestBody AccountCredentials accountCredentials, HttpServletResponse rs) {
+    public ResponseEntity<?> loginApplication(@RequestBody AccountCredentials accountCredentials, HttpServletResponse rs) {
     	
     	Usuario user = null;
     	
     	try {
     		
-    	    authentication(accountCredentials.getEmail(),accountCredentials.getPassword(), rs);
     		user = uService.findByEmail(accountCredentials.getEmail());
+    		if (user != null) {
+    			List<GrantedAuthority> roles = user.getUsuarioConRoles().stream()
+        				.map(uc -> new SimpleGrantedAuthority(uc.getRole().getNombreRol())).collect(Collectors.toList());
+        	    authentication(accountCredentials.getEmail(),accountCredentials.getPassword(),roles, rs);
+    		}else {
+    			throw new AccessDeniedException("El usuario es incorrecto");
+    		}	
 			
+		} catch (AccessDeniedException e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
 		} catch (IOException e) {
 			e.printStackTrace();
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
 		}
         return ResponseEntity.ok().body(user);
 
@@ -106,7 +120,10 @@ public class UserRestController {
     public ResponseEntity<Object> registrarUsuario(@RequestBody Usuario usuario, HttpServletResponse rs) {
         try {
             Usuario usuarioRegistrado = uService.registerNewUsuario(usuario);
-            authentication(usuario.getEmail(),usuario.getPassword(), rs);
+            List<GrantedAuthority> roles = usuarioRegistrado.getUsuarioConRoles().stream()
+    				.map(uc -> new SimpleGrantedAuthority(uc.getRole().getNombreRol())).collect(Collectors.toList());
+    	    
+            authentication(usuario.getEmail(),usuario.getPassword(),roles, rs);
             
             return ResponseEntity.ok(usuarioRegistrado);
         } catch (Exception ex) {
@@ -221,15 +238,21 @@ public class UserRestController {
         return encryptedPassword;
     }
     
-    private void authentication(String email, String password, HttpServletResponse rs) throws IOException {
-		Authentication authentication = authenticationManager.authenticate(
-		        new UsernamePasswordAuthenticationToken(
-		        		email,
-		        		password
-		        )
-		);
-		TokenAuthenticationService.addAuthentication(rs, email);
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+    private void authentication(String email, String password, List<GrantedAuthority> roles, HttpServletResponse rs) throws IOException {
+		try{
+			Authentication authentication = authenticationManager.authenticate(
+			        new UsernamePasswordAuthenticationToken(
+			        		email,
+			        		password,
+			        		roles
+			        )
+			);
+			TokenAuthenticationService.addAuthentication(rs, email,roles);
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+		}catch(Exception e) {
+			throw new AccessDeniedException("El password es incorrecto");
+		}
+		
 	}
 }
 

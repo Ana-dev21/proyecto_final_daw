@@ -22,20 +22,53 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	
 	 @Autowired
-	    private AppUserDetailService userDetailService;
+	 private AppUserDetailService userDetailService;
+	 
+	 
+	 private static final String[] WHITELIST_MAIN_POST = {
+
+			 "/usuario/login",
+			 "/usuario/encrypt",
+			 "/usuario/register"
+	    };
+	 
+	 private static final String[] WHITELIST_MAIN_GET = {
+
+			 "/planes/**",
+			 "/uploads/**",
+			 "/categorias/**",
+			 "/maestros/**",
+			 "/usuarios/**"
+	    };
+	 
+	 private static final String[] WHITELIST_SWAGGER = {
+
+	            // for Swagger UI v2
+	            "/v2/api-docs",
+	            "/swagger-ui.html",
+	            "/swagger-resources",
+	            "/swagger-resources/**",
+	            "/configuration/ui",
+	            "/configuration/security",
+	            "/webjars/**",
+
+	            // for Swagger UI v3 (OpenAPI)
+	            "/v3/api-docs/**",
+	            "/swagger-ui/**"
+	    }; 
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-        .antMatchers(HttpMethod.POST, "/usuario/login").permitAll()
-        .antMatchers(HttpMethod.POST, "/usuario/loginValidation").permitAll()
-        .antMatchers(HttpMethod.POST, "/usuario/encrypt").permitAll()
-        .antMatchers(HttpMethod.POST, "/usuario/register").permitAll()
+        .antMatchers(HttpMethod.POST,WHITELIST_MAIN_POST).permitAll()
+        .antMatchers(HttpMethod.GET,WHITELIST_MAIN_GET).permitAll()
+        .antMatchers(WHITELIST_SWAGGER).permitAll()
+        .antMatchers("/usuario/todos").hasRole("admin")
+        .antMatchers().hasRole("admin")
+        
+        
         .anyRequest().authenticated()
         .and()
-//        .addFilterBefore(new JWTLoginFilter("/usuario/login", authenticationManager()),
-//                UsernamePasswordAuthenticationFilter.class)
-        // And filter other requests to check the presence of JWT in header
         .addFilterBefore(new JWTAuthenticationFilter(),
                 UsernamePasswordAuthenticationFilter.class);
 	}

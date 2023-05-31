@@ -89,8 +89,10 @@ public class UsuarioServiceImpl implements IUsuarioService{
 	@Override
 	public Usuario findByEmail(String email) {
 		Usuario usuario = uRepo.findByEmail(email);
-		if (usuario !=null) {}
-		return usuario;
+		if (usuario !=null) {		
+			return usuario;
+		}
+		return null;
 	}
 
 	@Override

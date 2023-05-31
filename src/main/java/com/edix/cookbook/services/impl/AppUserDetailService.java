@@ -1,8 +1,13 @@
 package com.edix.cookbook.services.impl;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,11 +29,13 @@ public class AppUserDetailService  implements UserDetailsService{
 	        if (user == null) {
 	            throw new UsernameNotFoundException("User '" + email + "' not found");
 	        }
-
+	        List<GrantedAuthority> roles = user.getUsuarioConRoles().stream()
+	        		.map(uc -> new SimpleGrantedAuthority("ROLE_"+uc.getRole().getNombreRol())).collect(Collectors.toList());
+	        
 	        return org.springframework.security.core.userdetails.User
 	                .withUsername(user.getEmail())
 	                .password(user.getPassword())
-	                .authorities(Collections.emptyList())
+	                .authorities(roles)
 	                .accountExpired(false)
 	                .accountLocked(false)
 	                .credentialsExpired(false)
