@@ -40,7 +40,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			 "/maestros/**",
 			 "/usuarios/**",
 			 "/usuario/**",
-			 "/recetas/**"
+			 "/recetas/**",
+			 "/favoritos/**",
 	    };
 	 
 	 private static final String[] WHITELIST_SWAGGER = {
