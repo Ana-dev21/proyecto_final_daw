@@ -33,5 +33,6 @@ public interface IUsuarioService{
 
 	Usuario updateUsuario(Usuario usuario) throws Exception;
 
-	String guardarImagenGoogle(int idUsuario, String urlImagen);
+	Usuario actualizarPerfil(int idUsuario, String email, String username) throws Exception;
+
 }
