@@ -11,8 +11,10 @@ public interface IRecetaService {
 	List<Receta> findAll();
 	
 	Receta findById(int idReceta) throws Exception;
-	
-	Receta create(Receta receta) throws Exception;
+
+    Receta buscarPorId(int id);
+
+    Receta create(Receta receta) throws Exception;
 	
 	Receta create(Receta receta, MultipartFile imagen) throws Exception;
 	

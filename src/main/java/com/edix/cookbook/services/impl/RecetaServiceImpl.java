@@ -38,6 +38,10 @@ public class RecetaServiceImpl implements IRecetaService{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No se encontró la receta");
         }
 	}
+	@Override
+	public Receta buscarPorId(int id) {
+		return reRepo.findById(id).orElse(null);
+	}
 
 	@Override
 	public Receta create(Receta receta) throws Exception {

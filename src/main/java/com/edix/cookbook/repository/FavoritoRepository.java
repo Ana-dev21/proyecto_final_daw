@@ -12,4 +12,7 @@ public interface FavoritoRepository extends JpaRepository<Favorito, Integer> {
     @Query("SELECT f.receta FROM Favorito f WHERE f.usuario.idUsuario =?1")
     List<Receta> findRecetasFavoritas(int idUsuario);
 
+    //Método que devuelve un favorito por su usuario y su receta
+    @Query("SELECT f FROM Favorito f WHERE f.usuario.idUsuario =?1 AND f.receta.idReceta =?2")
+    Favorito findByUsuarioAndReceta(int idUsuario, int idReceta);
 }
