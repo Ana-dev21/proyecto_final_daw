@@ -211,6 +211,15 @@ public class UserRestController {
 		}
 	}
 
+	@DeleteMapping("/eliminar/comentario")
+	public void eliminarComentario(@RequestParam int idComentario) {
+		try{
+			coService.deleteById(idComentario);
+		}catch (Exception e){
+			throw new RuntimeException(e);
+		}
+	}
+
 	/**
 	 * Método para eliminar un usuario
 	 * @param idUsuario id del usuario a eliminar
