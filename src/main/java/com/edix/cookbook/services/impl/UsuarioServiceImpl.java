@@ -160,6 +160,18 @@ public class UsuarioServiceImpl implements IUsuarioService{
 		}
 	}
 
+	@Override
+	public Usuario actualizarPerfil(int idUsuario, String email, String username) throws Exception {
+		Usuario usuario = this.findById(idUsuario);
+		if (usuario != null) {
+			usuario.setEmail(email);
+			usuario.setUsername(username);
+			return uRepo.save(usuario);
+		}else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Ha ocurrido un error al guardar la receta");
+		}
+	}
+
 
 	@Override
 	public Usuario update(Usuario usuario) throws Exception {

@@ -113,7 +113,7 @@ public class UserRestController {
 
     /**
 	 * Método para registrar un usuario nuevo.
-	 * @param Usuario usuario a registrar
+	 * @param usuario a registrar
 	 * @return	Usuario si se ha creado correctamente, mensaje de error si no se ha podido crear
 	 */
     @PostMapping("/register")
@@ -224,8 +224,7 @@ public class UserRestController {
 	@PutMapping("/actualizar")
 	public ResponseEntity<?> actualizarUsuario(@RequestBody Usuario usuario) {
 		try {
-			System.out.println(usuario);
-			return ResponseEntity.ok(uService.updateUsuario(usuario));
+			return new ResponseEntity<>(uService.updateUsuario(usuario), HttpStatus.OK);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -239,20 +238,30 @@ public class UserRestController {
     }
     
     private void authentication(String email, String password, List<GrantedAuthority> roles, HttpServletResponse rs) throws IOException {
-		try{
+		try {
 			Authentication authentication = authenticationManager.authenticate(
-			        new UsernamePasswordAuthenticationToken(
-			        		email,
-			        		password,
-			        		roles
-			        )
+					new UsernamePasswordAuthenticationToken(
+							email,
+							password,
+							roles
+					)
 			);
-			TokenAuthenticationService.addAuthentication(rs, email,roles);
+			TokenAuthenticationService.addAuthentication(rs, email, roles);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			throw new AccessDeniedException("El password es incorrecto");
+		}
+	}
+
+		@PutMapping("/actualizarPerfil")
+		public ResponseEntity<?> actualizarPerfil(@RequestParam int idUsuario,
+		@RequestParam String email, @RequestParam String username) {
+			try {
+				return new ResponseEntity<>(uService.actualizarPerfil(idUsuario, email, username), HttpStatus.OK);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
 		}
 		
 	}
-}
 

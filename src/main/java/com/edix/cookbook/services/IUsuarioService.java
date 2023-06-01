@@ -32,4 +32,7 @@ public interface IUsuarioService{
 	boolean eliminarComentariosUsuario(int idUsuario);
 
 	Usuario updateUsuario(Usuario usuario) throws Exception;
+
+	Usuario actualizarPerfil(int idUsuario, String email, String username) throws Exception;
+
 }
