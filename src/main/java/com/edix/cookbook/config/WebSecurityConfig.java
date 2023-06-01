@@ -39,6 +39,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			 "/categorias/**",
 			 "/maestros/**",
 			 "/usuarios/**",
+			 "/usuario/**",
 			 "/recetas/**"
 	    };
 	 
