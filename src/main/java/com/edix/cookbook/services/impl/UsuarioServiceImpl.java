@@ -136,6 +136,8 @@ public class UsuarioServiceImpl implements IUsuarioService{
 		
 	}
 
+
+
 	@Override
 	public boolean eliminarComentariosUsuario(int idUsuario) {
 		List<Comentario> comentarios = uRepo.obtenerComentariosUsuario(idUsuario);
@@ -158,6 +160,14 @@ public class UsuarioServiceImpl implements IUsuarioService{
 		}else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Ha ocurrido un error al guardar la receta");
 		}
+	}
+
+	@Override
+	public String guardarImagenGoogle(int idUsuario, String urlImagen) {
+		Usuario usuario = this.findById(idUsuario);
+		usuario.setImagen(urlImagen);
+		uRepo.save(usuario);
+		return urlImagen + " guardada con exito";
 	}
 
 

@@ -142,6 +142,17 @@ public class UserRestController {
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@PostMapping("/guardarImagenGoogle")
+	public ResponseEntity<?> guardarImagenGoogle(@RequestBody int idUsuario, @RequestBody String imagen){
+		try {
+			return new ResponseEntity<>(uService.guardarImagenGoogle(idUsuario, imagen), HttpStatus.CREATED);
+
+		} catch (Exception e) {
+			return new ResponseEntity<>("Ocurrió un error al procesar la solicitud :" + e.getMessage(),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 
 	@GetMapping("/test")

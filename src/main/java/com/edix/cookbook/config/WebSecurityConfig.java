@@ -29,7 +29,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 			 "/usuario/login",
 			 "/usuario/encrypt",
-			 "/usuario/register"
+			 "/usuario/register",
+			 "/usuario/**"
+
 	    };
 	 
 	 private static final String[] WHITELIST_MAIN_GET = {
@@ -38,7 +40,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			 "/uploads/**",
 			 "/categorias/**",
 			 "/maestros/**",
-			 "/usuarios/**"
+			 "/usuario/**",
+			 "/usuarios/**",
+			 "/recetas/**"
 	    };
 	 
 	 private static final String[] WHITELIST_SWAGGER = {

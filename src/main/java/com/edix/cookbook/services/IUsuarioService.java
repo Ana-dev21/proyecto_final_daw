@@ -32,4 +32,6 @@ public interface IUsuarioService{
 	boolean eliminarComentariosUsuario(int idUsuario);
 
 	Usuario updateUsuario(Usuario usuario) throws Exception;
+
+	String guardarImagenGoogle(int idUsuario, String urlImagen);
 }
