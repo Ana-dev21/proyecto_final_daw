@@ -172,6 +172,14 @@ public class UsuarioServiceImpl implements IUsuarioService{
 		}
 	}
 
+	@Override
+	public String guardarImagenGoogle(int idUsuario, String urlImagen) throws Exception {
+		Usuario usuario = this.findById(idUsuario);
+		usuario.setImagen(urlImagen);
+		uRepo.save(usuario);
+		return urlImagen + " guardada con exito";
+	}
+
 
 	@Override
 	public Usuario update(Usuario usuario) throws Exception {
