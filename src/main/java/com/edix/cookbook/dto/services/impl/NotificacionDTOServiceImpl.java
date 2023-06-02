@@ -11,10 +11,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class NotificacionDTOServiceImpl implements INotificacionDTOService {
+	
         @Autowired
         private NotificacionesRepository nRepo;
         @Autowired
         private IUsuarioService uService;
+        
+        
+        /**
+		 * Convierte un objeto NotificacionDTO en una entidad Notificacion y la guarda en la base de datos.
+		 * 
+		 * @param notificacionDTO El objeto NotificacionDTO a convertir.
+		 * @return La entidad Notificacion guardada en la base de datos.
+         */
         public Notificacion convertirDTOaEntidad(NotificacionDTO notificacionDTO) {
             Usuario usuario = uService.findById(notificacionDTO.getIdUsuario());
             Notificacion notificacion = new Notificacion();
@@ -27,6 +36,12 @@ public class NotificacionDTOServiceImpl implements INotificacionDTOService {
             return nRepo.save(notificacion);
         }
 
+        /**
+		 * Convierte una entidad Notificacion en un objeto NotificacionDTO.
+		 * 
+		 * @param notificacion La entidad Notificacion a convertir.
+		 * @return El objeto NotificacionDTO resultante.
+         */
         public NotificacionDTO convertirEntidadADTO(Notificacion notificacion) {
             NotificacionDTO notificacionDTO = new NotificacionDTO();
             notificacionDTO.setIdNotificacion(notificacion.getIdNotificacion());

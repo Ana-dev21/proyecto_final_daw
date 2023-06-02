@@ -32,13 +32,6 @@ public class PlanServiceImpl implements IPlanService {
         }
     }
 
-
-    @Override
-    public boolean deleteById(int id) {
-    //TODO: implementar
-        return false;
-    }
-
     @Override
     public List<Plan> findAllByNombreContaining(String nombre) {
         return pRepo.findAllByNombreContaining(nombre);

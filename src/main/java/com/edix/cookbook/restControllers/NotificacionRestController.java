@@ -23,7 +23,8 @@ public class NotificacionRestController {
     INotificacionDTOService nDTOService;
 
     /**
-     * Este método permite crear una notificación
+     * Crea una notificación
+     * 
      * @param notificacion
      * @return ResponseEntity con la notificación creada
      */
@@ -33,23 +34,33 @@ public class NotificacionRestController {
         try {
             return ResponseEntity.ok(nService.crearNotificacion(notificacion));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+        	throw new RuntimeException("Error al crear la notificación", e);
         }
     }
+    
+    /**
+     * Obtiene todas las notificaciones en formato de transferencia de datos (DTO).
+     * 
+     * @return Lista de objetos NotificacionDTO que representan las notificaciones.
+     */
     @GetMapping("/todasDTO")
     public List<NotificacionDTO> getNotificaciones() {
-        List<Notificacion> notificaciones = nService.findAll();
-        List<NotificacionDTO> notificacionesDTO = new ArrayList<>();
+        try {
+			List<Notificacion> notificaciones = nService.findAll();
+			List<NotificacionDTO> notificacionesDTO = new ArrayList<>();
 
-        for (Notificacion notificacion : notificaciones) {
-            notificacionesDTO.add(nDTOService.convertirEntidadADTO(notificacion));
-        }
-
-        return notificacionesDTO;
+			for (Notificacion notificacion : notificaciones) {
+			    notificacionesDTO.add(nDTOService.convertirEntidadADTO(notificacion));
+			}
+			return notificacionesDTO;
+		} catch (Exception e) {
+			 throw new RuntimeException("Error al obtener las notificaciones", e);
+		}
     }
 
     /**
-     * Este método actualiza una notificación, recibe un DTO lo convierte y actualiza la notificación
+     * Actualiza una notificación, recibe un DTO lo convierte y actualiza la notificación
+     * 
      * @param notificacionDTO
      * @return ResponseEntity con la notificación actualizada
      * @throws Exception
@@ -60,12 +71,13 @@ public class NotificacionRestController {
             Notificacion notificacion = nDTOService.convertirDTOaEntidad(notificacionDTO);
             return ResponseEntity.ok(nService.actualizarNotificacion(notificacion));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+        	throw new RuntimeException("Error al actualizar la notificación", e);
         }
     }
 
     /**
-     * Este método elimina una notificación
+     * Elimina una notificación
+     * 
      * @param idNotificacion
      * @return ResponseEntity con un mensaje de confirmación
      * @throws Exception
@@ -75,11 +87,14 @@ public class NotificacionRestController {
         try {
             return ResponseEntity.ok(nService.eliminarNotificacion(idNotificacion));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+        	throw new RuntimeException("Error al eliminar la notificación", e);
         }
     }
+    
+    
     /**
-     * Este método obtiene una notificaciónDTO por su id
+     * Obtiene una notificaciónDTO por su id
+     * 
      * @param idNotificacion
      * @return ResponseEntity con la notificaciónDTO
      * @throws Exception
@@ -89,7 +104,7 @@ public class NotificacionRestController {
         try {
             return ResponseEntity.ok(nDTOService.convertirEntidadADTO(nService.findById(idNotificacion)));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+        	throw new RuntimeException("Error al obtener la notificación", e);
         }
     }
 

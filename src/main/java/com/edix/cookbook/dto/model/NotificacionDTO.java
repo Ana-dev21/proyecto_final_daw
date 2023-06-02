@@ -12,11 +12,9 @@ public class NotificacionDTO {
     private Timestamp fechaHora;
     private Boolean leida;
 
-    // Constructor vacío
     public NotificacionDTO() {
     }
 
-    // Constructor con parámetros
     public NotificacionDTO(Integer idNotificacion, Integer idUsuario, String mensaje, Timestamp fechaHora, Boolean leida) {
         this.idNotificacion = idNotificacion;
         this.idUsuario = idUsuario;
@@ -25,7 +23,6 @@ public class NotificacionDTO {
         this.leida = leida;
     }
 
-    // Getters y setters
     public Integer getIdNotificacion() {
         return idNotificacion;
     }

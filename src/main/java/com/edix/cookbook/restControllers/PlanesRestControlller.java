@@ -12,8 +12,11 @@ public class PlanesRestControlller {
 
     @Autowired
     IPlanService plService;
+    
+    
     /**
-     * Este método obtiene todos los planes
+     * Obtiene todos los planes
+     * 
      * @return ResponseEntity con todos los planes
      * @throws Exception
      */
@@ -22,12 +25,13 @@ public class PlanesRestControlller {
         try {
             return ResponseEntity.ok(plService.findAll());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+        	throw new RuntimeException("Error al obtener todos los planes", e);
         }
     }
 
     /**
-     * Este método obtiene un plan por su id
+     * Obtiene un plan por su id
+     * 
      * @param idPlan
      * @return ResponseEntity con el plan
      * @throws Exception
@@ -37,7 +41,7 @@ public class PlanesRestControlller {
         try {
             return ResponseEntity.ok(plService.findById(idPlan));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+        	throw new RuntimeException("Error al obtener el plan", e);
         }
     }
 }

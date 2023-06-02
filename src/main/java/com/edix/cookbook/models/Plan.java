@@ -2,6 +2,10 @@ package com.edix.cookbook.models;
 
 import javax.persistence.*;
 
+/**
+ * The persistent class for the planes database table.
+ * 
+ */
 @Entity
 @Table(name = "planes")
 public class Plan {

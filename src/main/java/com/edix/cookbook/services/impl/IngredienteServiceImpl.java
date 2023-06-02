@@ -24,16 +24,4 @@ public class IngredienteServiceImpl implements IIngredienteService{
 		return inRepo.findById(id).orElse(null);
 	}
 
-	@Override
-	public Ingrediente save(Ingrediente ingrediente) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteById(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

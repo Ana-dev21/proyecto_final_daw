@@ -16,30 +16,6 @@ public class RecetasEnCategoriaServiceImpl implements IRecetasEnCategoriaService
 	@Autowired RecetasEnCategoriaRepository reCaRepo;
 
 	@Override
-	public List<RecetasEnCategoria> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public RecetasEnCategoria findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public RecetasEnCategoria save(RecetasEnCategoria recetasEnCategoria) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteById(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public List<Receta> findAllByCategoriaContaining(String categoria) {
 		
 		return reCaRepo.findAllByCategoriaContaining(categoria);

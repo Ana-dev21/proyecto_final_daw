@@ -124,30 +124,6 @@ public class RecetaServiceImpl implements IRecetaService{
 	}
 
 	@Override
-	public List<Receta> findAllOrderedByNombre() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Receta> findAllByNombreContaining(String nombre) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Receta> findAllByUsuario(Usuario Usuario) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Receta> findAllByTiempoCoccionLessThan(int tiempo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Comentario> listarComentarios(int idReceta) {
 		return reRepo.comentariosEnReceta(idReceta);
 	}

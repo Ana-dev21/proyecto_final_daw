@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 /**
  * The persistent class for the ingredientes database table.
- * 
+ *  
  */
 @Entity
 @Table(name="ingredientes")

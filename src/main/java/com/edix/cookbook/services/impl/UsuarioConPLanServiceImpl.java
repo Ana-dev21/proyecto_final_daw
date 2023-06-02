@@ -15,6 +15,7 @@ public class UsuarioConPLanServiceImpl implements IUsuarioConPLanService {
     UsuarioConPLanRepository uRepo;
     @Autowired
     UsuarioServiceImpl uService;
+    
     @Override
     public UsuarioConPlan findByIdUsuario(int idUsuario) {
         Usuario aux = uService.findById(idUsuario);

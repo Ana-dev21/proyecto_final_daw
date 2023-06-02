@@ -20,22 +20,4 @@ public class CategoriaServiceImpl implements ICategoriaService{
 		return caRepo.findAll();
 	}
 
-	@Override
-	public Categoria findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Categoria save(Categoria categoria) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteById(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

@@ -20,17 +20,6 @@ public class RecetasConIngredienteServiceImpl implements IRecetasConIngredienteS
 	@Autowired RecetaServiceImpl rServ;
 
 	@Autowired IngredienteServiceImpl iServ;
-	@Override
-	public List<RecetasConIngrediente> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public RecetasConIngrediente findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public RecetasConIngrediente save(RecetasConIngrediente recetasConIngrediente) throws Exception {
@@ -42,12 +31,6 @@ public class RecetasConIngredienteServiceImpl implements IRecetasConIngredienteS
 			}
 
 		}
-
-	@Override
-	public void deleteById(int id) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public List<Receta> findAllByIngrediente(String nombre) {

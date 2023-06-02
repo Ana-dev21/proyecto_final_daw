@@ -2,6 +2,10 @@ package com.edix.cookbook.models;
 
 import javax.persistence.*;
 
+/**
+ * The persistent class for the roles database table.
+ * 
+ */
 @Entity
 @Table(name = "roles")
 public class Rol {

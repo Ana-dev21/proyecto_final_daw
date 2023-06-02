@@ -20,33 +20,46 @@ public class MaestrosRestController {
 	@Autowired IRecetaService reService;
 	@Autowired IIngredienteService inService;
 
+	
 	/**
-	 * Este método obtiene todas las categorías de recetas existentes
+	 * Obtiene todas las categorías de recetas existentes
 	 *
 	 * @return ResponseEntity con una lista de todas las categorías de recetas
 	 */
 	@GetMapping("/categorias")
 	public ResponseEntity<?> getAllCategorias (){
-		return ResponseEntity.ok(caService.findAll());
+		try {
+			return ResponseEntity.ok(caService.findAll());
+		} catch (Exception e) {
+			throw new RuntimeException("Error al obtener las categorias", e);
+		}
 	}
 	
 	/**
-	 * Este método obtiene todas las recetas existentes
+	 * Obtiene todas las recetas existentes
 	 *
 	 * @return ResponseEntity con una lista de todas las recetas
 	 */
 	@GetMapping("/todas")
 	public ResponseEntity<?> getAllRecetas (){
-		return ResponseEntity.ok(reService.findAll());
+		try {
+			return ResponseEntity.ok(reService.findAll());
+		} catch (Exception e) {
+			throw new RuntimeException("Error al obtener todas las recetas", e);
+		}
 	}
 	
 	/**
-	 * Este método obtiene todos los ingredientes existentes
+	 * Obtiene todos los ingredientes existentes
 	 *
 	 * @return ResponseEntity con una lista de todos los ingredientes
 	 */
 	@GetMapping("/ingredientes")
 	public ResponseEntity<?> getAllIngredientes (){
-		return ResponseEntity.ok(inService.findAll());
+		try {
+			return ResponseEntity.ok(inService.findAll());
+		} catch (Exception e) {
+			throw new RuntimeException("Error al obtener todos los ingredientes", e);
+		}
 	}
 }

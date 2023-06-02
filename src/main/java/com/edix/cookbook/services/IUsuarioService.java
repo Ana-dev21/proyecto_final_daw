@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.edix.cookbook.models.Usuario;
 
 public interface IUsuarioService{
+	
 	List<Usuario> findAll();
 	
 	Usuario findById(int id);

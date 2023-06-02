@@ -50,6 +50,7 @@ public class UserRestController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    
 	/**
 	 * Este método obtiene un usuario
 	 *

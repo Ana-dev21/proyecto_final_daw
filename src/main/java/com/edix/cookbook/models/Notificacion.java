@@ -1,10 +1,12 @@
 package com.edix.cookbook.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+/**
+ * The persistent class for the notificaciones database table.
+ * 
+ */
 @Entity
 @Table(name = "notificaciones")
 public class Notificacion {

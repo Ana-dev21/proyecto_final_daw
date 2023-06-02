@@ -136,6 +136,7 @@ public class UsuarioServiceImpl implements IUsuarioService{
 		
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public boolean eliminarComentariosUsuario(int idUsuario) {
 		List<Comentario> comentarios = uRepo.obtenerComentariosUsuario(idUsuario);

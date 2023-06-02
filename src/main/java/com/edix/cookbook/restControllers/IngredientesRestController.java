@@ -19,8 +19,10 @@ public class IngredientesRestController {
     @Autowired
     IRecetasConIngredienteService riServ;
 
+    
     /**
-     * Este método obtiene todas los ingredientes que contiene una receta, su cantidad y su medida
+     * Obtiene todas los ingredientes que contiene una receta, su cantidad y su medida
+     * 
      * @param idReceta
      * @return ResponseEntity con todos los ingredientes de una receta
      * @throws Exception
@@ -30,12 +32,13 @@ public class IngredientesRestController {
         try {
             return ResponseEntity.ok(riServ.findAllIngredientesByReceta(idReceta));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al recuperar ingredientes", e);
         }
     }
 
     /**
-     * Este metodo crea un nuevo insert en recetas con ingredientes
+     * Crea un nuevo insert en recetas con ingredientes
+     * 
      * @param idReceta
      * @param idIngrediente
      * @param cantidad
@@ -46,15 +49,15 @@ public class IngredientesRestController {
     @PostMapping("/nuevoIngredienteEnReceta")
     public ResponseEntity<?> nuevoIngredienteEnReceta(int idReceta, int idIngrediente, String unidadMedida, BigDecimal cantidad) {
         try {
-            System.out.println("PRUBADNO" + cantidad);
             return new ResponseEntity<>(riServ.nuevoIngredienteEnReceta(idReceta, idIngrediente, unidadMedida, cantidad), HttpStatus.CREATED);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al añadir ingredientes a receta", e);
         }
     }
 
     /**
-     * Este método crea un nuevo insert en la tabla Recetas con Ingredientes
+     * Crea un nuevo insert en la tabla Recetas con Ingredientes
+     * 
      * @param recetasConIngredientes
      * @return ResponseEntity con el nuevo insert
      * @throws Exception

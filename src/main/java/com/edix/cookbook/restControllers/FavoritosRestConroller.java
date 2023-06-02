@@ -14,8 +14,10 @@ public class FavoritosRestConroller {
     @Autowired
     IFavoritoService fServ;
 
+    
     /**
-     * Este método obtiene todos los favoritos de un usuario por su id
+     * Obtiene todos los favoritos de un usuario por su id
+     * 
      * @param idUsuario
      * @return ResponseEntity con todos los favoritos
      * @throws Exception
@@ -25,12 +27,13 @@ public class FavoritosRestConroller {
         try {
             return ResponseEntity.ok(fServ.findAllFavoritosByIdUsuario(idUsuario));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al obtener los favoritos", e);
         }
     }
 
     /**
-     * Este método añade una receta favorita a un usuario
+     * Añade una receta favorita a un usuario
+     * 
      * @param idUsuario
      * @param idReceta
      * @return ResponseEntity con el favorito añadido
@@ -41,12 +44,13 @@ public class FavoritosRestConroller {
         try {
             return new ResponseEntity<>(fServ.addFavorito(idUsuario, idReceta), HttpStatus.CREATED);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al añadir receta favorita", e);
         }
     }
 
     /**
-     * Método que borra un favorito de la bbdd
+     * Borra un favorito de la bbdd
+     * 
      * @param idUsuario
      * @param idReceta
      * @return ResponseEntity con el favorito borrado
@@ -57,16 +61,23 @@ public class FavoritosRestConroller {
         try {
             return ResponseEntity.ok(fServ.deleteFavorito(idUsuario, idReceta));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al eliminar receta favorita", e);
         }
     }
+    
+    /**
+     * Comprueba si una receta es favorita para un usuario dado
+     * 
+	 * @param idUsuario El ID del usuario.
+	 * @param idReceta El ID de la receta.
+	 * @return ResponseEntity con el resultado de la comprobación.
+     */
     @GetMapping("/esFavorita")
     public ResponseEntity<?> esFavorita(@RequestParam int idUsuario, @RequestParam int idReceta) {
-        System.out.println("idUsuario: " + idUsuario);
         try {
             return ResponseEntity.ok(fServ.isFavorita(idUsuario, idReceta));
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al comprobar receta", e);
         }
     }
 }

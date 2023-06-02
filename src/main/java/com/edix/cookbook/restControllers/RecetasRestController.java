@@ -42,8 +42,9 @@ public class RecetasRestController {
 	@Autowired ComentarioServiceImpl coService;
 	@Autowired IUsuarioService usService;
 	
+	
 	/**
-	 * Este método obtiene una receta
+	 * Obtiene una receta
 	 *
 	 * @param idReceta El id de la receta
 	 * @return ResponseEntity con la receta 
@@ -54,12 +55,13 @@ public class RecetasRestController {
 		try {
 			return ResponseEntity.ok(reService.findById(idReceta));
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("Error al obtener la receta", e);
 		}
 	}
 	
 	/**
-	 * Este método guarda una imagen en la carpeta uploads y guarda el nombre de la imagen guardada como String en la Receta
+	 * Guarda una imagen
+	 * 
 	 * @param idReceta
 	 * @param imagen La imagen puede tener 5MB como máximo
 	 * @return Receta La receta con el nombre de la imagen guardada en la propiedad de tipo String imagen
@@ -72,19 +74,19 @@ public class RecetasRestController {
 			return new ResponseEntity<>(reService.saveImage(idReceta, imagen), HttpStatus.CREATED);
 
 		} catch (Exception e) {
-			return new ResponseEntity<>("Ocurrió un error al procesar la solicitud :" + e.getMessage(),
+			return new ResponseEntity<>("Ocurrió un error al guardar imagen" + e.getMessage(),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	/**
-	 * Método para dar de alta una nueva receta
-	 * @param receta
-	 * @return
-	 * @throws Exception si 
+	 * Crea una nueva receta
+	 * 
+	 * @param receta La receta a crear.
+	 * @param file   (opcional) Archivo de imagen asociado a la receta.
+	 * @return ResponseEntity con el resultado de la creación de la receta.
 	 */
 	@PostMapping("/alta")
-	// añadir parametros opcionales MultiFile
 	public ResponseEntity<?> createReceta(@RequestBody Receta receta, @RequestParam(name="imagen", required=false) MultipartFile file) {
 		try {
 			if (file != null) {
@@ -94,83 +96,126 @@ public class RecetasRestController {
 			}
 
 		} catch (Exception e) {
-			return new ResponseEntity<>("Ocurrió un error al crear la receta :" + e.getMessage(),
+			return new ResponseEntity<>("Ocurrió un error al crear la receta" + e.getMessage(),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
+	/**
+	 * Actualiza una receta existente.
+	 * 
+	 * @param receta La receta a actualizar.
+	 * @return ResponseEntity con el resultado de la actualización de la receta.
+	 */
 	@PutMapping("/update")
-	//añadir parametros opcionales MultiFile
     public ResponseEntity<?> updateReceta(@RequestBody Receta receta) {
         try {
 			reService.update(receta);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>("Ocurrió un error al procesar la solicitud :" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Ocurrió un error al actualizar la receta" + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
     }
 
 	/**
-	 * Este método obtiene todas las recetas que contengan una determinada categoría
+	 * Obtiene todas las recetas que contengan una determinada categoría
 	 *
 	 * @param categoria La categoría por la que se filtrarán las recetas
 	 * @return ResponseEntity con una lista de las recetas que contengan la categoría proporcionada
 	 */
 	@GetMapping("/porCategoria")
 	public ResponseEntity<?> getRecetasByCategoria (@RequestParam String categoria){
-		return ResponseEntity.ok(reCaService.findAllByCategoriaContaining(categoria));
+		try {
+			return ResponseEntity.ok(reCaService.findAllByCategoriaContaining(categoria));
+		} catch (Exception e) {
+			throw new RuntimeException("Error al obtener las recetas por categoria", e);
+		}
 	}
 
 	/**
-	 * Este método obtiene todas las recetas que contengan una determinada categoría
+	 * Obtiene todas las recetas que contengan una determinada categoría
 	 *
 	 * @param idCategoria El id de la categoría por la que se filtrarán las recetas
 	 * @return ResponseEntity con una lista de las recetas que contengan la categoría proporcionada
 	 */
 	@GetMapping("/porIdCategoria")
 	public ResponseEntity<?> getRecetasByIdCategoria (@RequestParam int idCategoria){
-		return ResponseEntity.ok(reCaService.findAllByCategoriaIdCategoria(idCategoria));
+		try {
+			return ResponseEntity.ok(reCaService.findAllByCategoriaIdCategoria(idCategoria));
+		} catch (Exception e) {
+			throw new RuntimeException("Error al obtener las recetas por categoria", e);
+		}
 	}
 	
 	/**
-	 * Este método obtiene todas las recetas que estén asociadas a un plan
+	 * Obtiene todas las recetas que estén asociadas a un plan
 	 *
 	 * @param idPlan El id de Plan por el que se filtrarán las recetas
 	 * @return ResponseEntity con una lista de las recetas con el Plan indicado
 	 */
 	@GetMapping("/porIdPlan")
 	public ResponseEntity<?> getRecetasByIdPlan (@RequestParam int idPlan){
-		return ResponseEntity.ok(rePlService.findAllByPlan(idPlan));
+		try {
+			return ResponseEntity.ok(rePlService.findAllByPlan(idPlan));
+		} catch (Exception e) {
+			throw new RuntimeException("Error al obtener las recetas por Plan", e);
+		}
 	}
 
 
 	/**
-	 * Este método obtiene todas las recetas que contengan un determinado ingrediente
+	 * Obtiene todas las recetas que contengan un determinado ingrediente
 	 *
 	 * @param ingrediente El ingrediente por el que se filtrarán las recetas
 	 * @return ResponseEntity con una lista de las recetas que contengan el ingrediente proporcionado
 	 */
 	@GetMapping("/porIngrediente")
 	public ResponseEntity<?> getRecetasByIngrediente (@RequestParam String ingrediente){
-		return ResponseEntity.ok(reCiService.findAllByIngrediente(ingrediente));
+		try {
+			return ResponseEntity.ok(reCiService.findAllByIngrediente(ingrediente));
+		} catch (Exception e) {
+			throw new RuntimeException("Error al obtener las recetas por Ingrediente", e);
+		}
 	}
 	
 	/**
-	 * Este método obtiene todas las recetas que contengan una lista de ingredientes
+	 * Obtiene todas las recetas que contengan una lista de ingredientes
 	 *
 	 * @param listaIngredientes La lista de ingredientes por la que se filtrarán las recetas. ej. [2,3]
 	 * @return ResponseEntity con una lista de las recetas que contengan los ingredientes proporcionados
 	 */
 	@PostMapping("/porIngredientes")
 	public ResponseEntity<?> getRecetasByMultipleIngredientes (@RequestBody List<Integer> listaIngredientes){
-		return ResponseEntity.ok(reCiService.findAllByMultipleIngredientes(listaIngredientes));
+		try {
+			return ResponseEntity.ok(reCiService.findAllByMultipleIngredientes(listaIngredientes));
+		} catch (Exception e) {
+			throw new RuntimeException("Error al obtener las recetas por Ingredientes", e);
+		}
 	}
-
+	
+	/**
+	 * Obtiene una lista de comentarios para una receta específica.
+	 * 
+	 * @param idReceta El ID de la receta.
+	 * @return Lista de objetos Comentario que representan los comentarios de la receta.
+	 */
 	@GetMapping("/comentarios")
 	public List<Comentario> ObtenerComentarios(@RequestParam int idReceta){
-		return reService.listarComentarios(idReceta);
+		try {
+			return reService.listarComentarios(idReceta);
+		} catch (Exception e) {
+			throw new RuntimeException("Error al obtener comentarios", e);
+		}
 	}
 
+	/**
+	 * Crea un nuevo comentario para una receta específica.
+	 * 
+	 * @param comentario El objeto Comentario que se va a crear.
+	 * @param idReceta   El ID de la receta a la que se va a agregar el comentario.
+	 * @param idUsuario  El ID del usuario que realiza el comentario.
+	 * @return ResponseEntity con el resultado de la creación del comentario.
+ 	 */
 	@PostMapping("/alta/comentario")
 	public ResponseEntity<?> createComentario(@RequestBody Comentario comentario,
 									   @RequestParam int idReceta,
@@ -193,16 +238,32 @@ public class RecetasRestController {
 		return null;
 	}
 
+	/**
+	 * Elimina una receta por su ID.
+	 *
+	 * @param idReceta El ID de la receta a eliminar.
+	 */
 	@DeleteMapping("/eliminar")
 	public void eliminarReceta (@RequestParam int idReceta){
 		try {
 			reService.deleteById(idReceta);
 		}catch (Exception e) {
-			throw new RuntimeException(e);}
+			throw new RuntimeException("Error al obtener comentarios", e);
+		}
 	}
 
+	/**
+	 * Obtiene todas las recetas creadas por un autor específico.
+	 *
+	 * @param idUsuario El ID del usuario autor.
+	 * @return ResponseEntity con la lista de recetas creadas por el autor.
+	 */
 	@GetMapping("/porAutor")
 	public ResponseEntity<?> getRecetasByAutor (@RequestParam int idUsuario){
-		return ResponseEntity.ok(reService.findAllByUsuario_IdUsuario(idUsuario));
+		try {
+			return ResponseEntity.ok(reService.findAllByUsuario_IdUsuario(idUsuario));
+		} catch (Exception e) {
+			throw new RuntimeException("Error al obtener recetas por autor", e);
+		}
 	}
 }
