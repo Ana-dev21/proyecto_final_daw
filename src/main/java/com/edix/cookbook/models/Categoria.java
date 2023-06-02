@@ -16,13 +16,15 @@ public class Categoria implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID_CATEGORIA")
+	@Column(name="id_categoria")
 	private int idCategoria;
 
 	@Lob
 	private String descripcion;
 
 	private String nombre;
+
+	private String imagen;
 
 	public Categoria() {
 	}
@@ -51,4 +53,7 @@ public class Categoria implements Serializable {
 		this.nombre = nombre;
 	}
 
+	public String getImagen() { return "http://localhost:8080/categorias/" + imagen;}
+
+	public void setImagen(String imagen) { this.imagen = imagen; }
 }

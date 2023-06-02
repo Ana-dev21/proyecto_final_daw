@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 /**
  * The persistent class for the ingredientes database table.
- * 
+ *  
  */
 @Entity
 @Table(name="ingredientes")
@@ -16,7 +16,7 @@ public class Ingrediente implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID_INGREDIENTE")
+	@Column(name="id_ingrediente")
 	private int idIngrediente;
 
 	@Lob

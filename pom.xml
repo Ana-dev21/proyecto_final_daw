@@ -43,11 +43,6 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version><!--$NO-MVN-MAN-VER$-->
-        </dependency>
-        <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
             <scope>provided</scope>
@@ -69,17 +64,37 @@
 			    <artifactId>springfox-swagger2</artifactId>
 			    <version>3.0.0</version>
 			</dependency>
-			
 			<dependency>
 			    <groupId>io.springfox</groupId>
 			    <artifactId>springfox-swagger-ui</artifactId>
 			    <version>3.0.0</version>
 			</dependency>
-			
 			<dependency>
 			    <groupId>io.springfox</groupId>
 			    <artifactId>springfox-boot-starter</artifactId>
 			    <version>3.0.0</version>
+			</dependency>
+		<!-- Security dependencies -->
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+			    <artifactId>jjwt-api</artifactId>
+			    <version>0.11.5</version>
+			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+			    <artifactId>jjwt-impl</artifactId>
+			    <version>0.11.5</version>
+			    <scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+			    <artifactId>jjwt-jackson</artifactId>
+			    <version>0.11.5</version>
+			    <scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-starter-security</artifactId>
 			</dependency>
 	</dependencies>
 
@@ -88,6 +103,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.1.0</version><!--$NO-MVN-MAN-VER$-->
 			</plugin>
 		</plugins>
 	</build>

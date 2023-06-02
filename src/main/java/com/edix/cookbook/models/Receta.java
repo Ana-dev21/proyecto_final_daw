@@ -1,7 +1,10 @@
 package com.edix.cookbook.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -17,8 +20,8 @@ public class Receta implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="ID_RECETA")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id_receta")
 	private int idReceta;
 
 	private BigDecimal calorias;
@@ -39,19 +42,21 @@ public class Receta implements Serializable {
 
 	private BigDecimal proteinas;
 
-	@Column(name="TIEMPO_COCCION")
-	private int tiempoCoccion;
 
-	@Column(name="TIEMPO_PREPARACION")
-	private int tiempoPreparacion;
+	@Column(name="tiempo_coccion")
+	private Integer tiempoCoccion;
+
+	@Column(name="tiempo_preparacion")
+	private Integer tiempoPreparacion;
 
 	//bi-directional many-to-one association to RecetasConIngrediente
-	@OneToMany(mappedBy="receta")
+	@OneToMany(mappedBy = "receta", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
 	private List<RecetasConIngrediente> recetasConIngredientes;
 
 	//uni-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="ID_USUARIO")
+	@JoinColumn(name="id_usuario")
 	private Usuario usuario;
 
 	public Receta() {
@@ -98,7 +103,7 @@ public class Receta implements Serializable {
 	}
 
 	public String getImagen() {
-		return this.imagen;
+		return "http://localhost:8080/uploads/" + this.imagen;
 	}
 
 	public void setImagen(String imagen) {
@@ -129,11 +134,11 @@ public class Receta implements Serializable {
 		this.proteinas = proteinas;
 	}
 
-	public int getTiempoCoccion() {
+	public Integer getTiempoCoccion() {
 		return this.tiempoCoccion;
 	}
 
-	public void setTiempoCoccion(int tiempoCoccion) {
+	public void setTiempoCoccion(Integer tiempoCoccion) {
 		this.tiempoCoccion = tiempoCoccion;
 	}
 
