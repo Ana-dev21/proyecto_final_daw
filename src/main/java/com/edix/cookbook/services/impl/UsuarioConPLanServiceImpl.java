@@ -25,4 +25,9 @@ public class UsuarioConPLanServiceImpl implements IUsuarioConPLanService {
             return null;
         }
     }
+
+    @Override
+    public UsuarioConPlan save(UsuarioConPlan usuarioConPlan) {
+        return uRepo.save(usuarioConPlan);
+    }
 }

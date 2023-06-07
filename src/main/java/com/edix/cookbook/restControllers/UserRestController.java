@@ -2,9 +2,8 @@ package com.edix.cookbook.restControllers;
 
 import com.edix.cookbook.models.Notificacion;
 import com.edix.cookbook.models.UsuarioConPlan;
-import com.edix.cookbook.services.IComentarioService;
-import com.edix.cookbook.services.INotificacionService;
-import com.edix.cookbook.services.IUsuarioConPLanService;
+import com.edix.cookbook.models.UsuarioConRoles;
+import com.edix.cookbook.services.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +23,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.edix.cookbook.config.AccountCredentials;
 import com.edix.cookbook.config.TokenAuthenticationService;
 import com.edix.cookbook.models.Usuario;
-import com.edix.cookbook.services.IUsuarioService;
+
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +41,8 @@ public class UserRestController {
 	private IUsuarioService uService;
 	@Autowired
 	private IUsuarioConPLanService uConPlanService;
+	@Autowired
+	private IUsuariosConRolesService uConRolService;
 	@Autowired
 	private INotificacionService nService;
 	@Autowired
@@ -121,6 +123,16 @@ public class UserRestController {
     public ResponseEntity<Object> registrarUsuario(@RequestBody Usuario usuario, HttpServletResponse rs) {
         try {
             Usuario usuarioRegistrado = uService.registerNewUsuario(usuario);
+			UsuarioConRoles uConRoles = new UsuarioConRoles();
+			uConRoles.setUsuario(usuarioRegistrado);
+			uConRoles.setRole(usuarioRegistrado.getUsuarioConRoles().get(0).getRole());
+			uConRolService.save(uConRoles);
+			UsuarioConPlan uConPlan = new UsuarioConPlan();
+			uConPlan.setUsuario(usuarioRegistrado);
+			uConPlan.setPlan(usuarioRegistrado.getPlan());
+			uConPlan.setEstado("En progreso");
+			uConPlan.setFechaInicio(new Date(System.currentTimeMillis()).toLocalDate());
+			uConPlanService.save(uConPlan);
             List<GrantedAuthority> roles = usuarioRegistrado.getUsuarioConRoles().stream()
     				.map(uc -> new SimpleGrantedAuthority(uc.getRole().getNombreRol())).collect(Collectors.toList());
     	    

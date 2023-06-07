@@ -6,4 +6,5 @@ public interface IUsuariosConRolesService {
 	
 	UsuarioConRoles getUsuarioConRoles(int idUsuario);
 
+	UsuarioConRoles save(UsuarioConRoles usuarioConRoles);
 }

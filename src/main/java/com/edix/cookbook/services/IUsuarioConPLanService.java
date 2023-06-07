@@ -6,4 +6,5 @@ public interface IUsuarioConPLanService {
 
     UsuarioConPlan findByIdUsuario(int idUsuario);
 
+    UsuarioConPlan save(UsuarioConPlan usuarioConPlan);
 }

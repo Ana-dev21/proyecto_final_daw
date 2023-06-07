@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.edix.cookbook.models.Comentario;
+import com.edix.cookbook.models.Plan;
 import com.edix.cookbook.repository.ComentarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,8 @@ public class UsuarioServiceImpl implements IUsuarioService{
 	@Autowired ComentarioRepository coRepo;
 	@Autowired PasswordEncoder passwordEncoder;
 	@Autowired RolRepository rRepo;
+	@Autowired PlanServiceImpl planService;
+	@Autowired UsuarioConRolesServiceImpl ucRolService;
 	
 
 
@@ -63,6 +66,8 @@ public class UsuarioServiceImpl implements IUsuarioService{
 			ucroles.add(new UsuarioConRoles(rRepo.findById(2).get(),newUsuario)); 
 			newUsuario.setUsuarioConRoles(ucroles);
 			newUsuario.setFechaRegistro(cal.getTime());
+			Plan plan = planService.findById(1);
+			newUsuario.setPlan(plan);
 			return uRepo.save(newUsuario);
 		}else
 			throw new Exception ("El mail o username ya existe");
